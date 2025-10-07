@@ -5,13 +5,28 @@ import { GeistMono } from "geist/font/mono"
 import { Analytics } from "@vercel/analytics/next"
 import { Suspense } from "react"
 import { AuthProvider } from "@/contexts/AuthContext"
+import { Providers } from "@/components/providers/Providers"
 import { Toaster } from "react-hot-toast"
 import "./globals.css"
 
 export const metadata: Metadata = {
-  title: "CVHS Community Service Hours",
+  title: {
+    default: "CVHS Community Service Hours",
+    template: "%s | CVHS Community Service",
+  },
   description: "Track and manage community service hours for CVHS students",
-  generator: "v0.app",
+  keywords: ["community service", "volunteer hours", "CVHS", "student tracking"],
+  authors: [{ name: "CVHS" }],
+  openGraph: {
+    title: "CVHS Community Service Hours",
+    description: "Track and manage community service hours for CVHS students",
+    type: "website",
+    locale: "en_US",
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
 }
 
 export default function RootLayout({
@@ -22,9 +37,11 @@ export default function RootLayout({
   return (
     <html lang="en" className="dark">
       <body className={`font-sans ${GeistSans.variable} ${GeistMono.variable} antialiased`}>
-        <AuthProvider>
-          <Suspense fallback={<div>Loading...</div>}>{children}</Suspense>
-        </AuthProvider>
+        <Providers>
+          <AuthProvider>
+            <Suspense fallback={<div>Loading...</div>}>{children}</Suspense>
+          </AuthProvider>
+        </Providers>
         <Toaster 
           position="top-right"
           toastOptions={{
