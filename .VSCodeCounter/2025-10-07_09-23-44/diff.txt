@@ -1,0 +1,229 @@
+Date : 2025-10-07 09:23:44
+Directory : /Users/spursh/Documents/code/hours-frontend-next
+Total : 153 files,  11628 codes, -47 comments, 889 blanks, all 12470 lines
+
+Languages
++----------------+------------+------------+------------+------------+------------+
+| language       | files      | code       | comment    | blank      | total      |
++----------------+------------+------------+------------+------------+------------+
+| JSON           |          2 |      5,049 |          0 |          0 |      5,049 |
+| YAML           |          1 |      2,625 |          0 |        465 |      3,090 |
+| TypeScript JSX |         91 |      2,164 |        -44 |        231 |      2,351 |
+| TypeScript     |         57 |      1,693 |         -3 |        180 |      1,870 |
+| CSS            |          1 |         96 |          0 |         12 |        108 |
+| JavaScript     |          1 |          1 |          0 |          1 |          2 |
++----------------+------------+------------+------------+------------+------------+
+
+Directories
++---------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| path                                                                                                          | files      | code       | comment    | blank      | total      |
++---------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| .                                                                                                             |        153 |     11,628 |        -47 |        889 |     12,470 |
+| . (Files)                                                                                                     |          7 |      7,732 |          8 |        470 |      8,210 |
+| app                                                                                                           |         73 |      1,796 |        -46 |        168 |      1,918 |
+| app (Files)                                                                                                   |          3 |        114 |          0 |         12 |        126 |
+| app/admin                                                                                                     |         34 |      1,541 |         -9 |        120 |      1,652 |
+| app/admin (Files)                                                                                             |          1 |       -846 |         -9 |        -35 |       -890 |
+| app/admin/components                                                                                          |         33 |      2,387 |          0 |        155 |      2,542 |
+| app/forgot-password                                                                                           |          1 |        193 |          4 |         20 |        217 |
+| app/help                                                                                                      |          1 |         22 |          0 |          0 |         22 |
+| app/login                                                                                                     |          3 |       -162 |        -11 |        -17 |       -190 |
+| app/login (Files)                                                                                             |          1 |       -337 |        -11 |        -35 |       -383 |
+| app/login/components                                                                                          |          2 |        175 |          0 |         18 |        193 |
+| app/register                                                                                                  |          8 |       -140 |         -8 |         -8 |       -156 |
+| app/register (Files)                                                                                          |          1 |       -436 |         -8 |        -41 |       -485 |
+| app/register/components                                                                                       |          7 |        296 |          0 |         33 |        329 |
+| app/reset-password                                                                                            |          1 |        274 |          8 |         32 |        314 |
+| app/student                                                                                                   |          8 |        -44 |        -12 |          2 |        -54 |
+| app/student/dashboard                                                                                         |          7 |         -2 |         -8 |          4 |         -6 |
+| app/student/dashboard (Files)                                                                                 |          1 |       -312 |         -8 |        -23 |       -343 |
+| app/student/dashboard/components                                                                              |          6 |        310 |          0 |         27 |        337 |
+| app/student/settings                                                                                          |          1 |        -42 |         -4 |         -2 |        -48 |
+| app/supervisor                                                                                                |         13 |        -79 |        -18 |         -2 |        -99 |
+| app/supervisor/dashboard                                                                                      |         13 |        -79 |        -18 |         -2 |        -99 |
+| app/supervisor/dashboard (Files)                                                                              |          1 |       -759 |        -18 |        -53 |       -830 |
+| app/supervisor/dashboard/components                                                                           |         12 |        680 |          0 |         51 |        731 |
+| app/unauthorized                                                                                              |          1 |         77 |          0 |          9 |         86 |
+| components                                                                                                    |         22 |        503 |          0 |         79 |        582 |
+| components/auth                                                                                               |          6 |        108 |          0 |         23 |        131 |
+| components/data                                                                                               |          1 |         52 |          0 |          5 |         57 |
+| components/feedback                                                                                           |          5 |        154 |          0 |         23 |        177 |
+| components/forms                                                                                              |          5 |        171 |          0 |         24 |        195 |
+| components/layout                                                                                             |          2 |          3 |          0 |          0 |          3 |
+| components/providers                                                                                          |          1 |         16 |          0 |          4 |         20 |
+| components/ui                                                                                                 |          2 |         -1 |          0 |          0 |         -1 |
+| contexts                                                                                                      |          1 |          7 |          2 |          0 |          9 |
+| hooks                                                                                                         |         33 |      1,078 |          0 |         85 |      1,163 |
+| hooks (Files)                                                                                                 |          7 |        -65 |          0 |          3 |        -62 |
+| hooks/admin                                                                                                   |         19 |        880 |          0 |         60 |        940 |
+| hooks/mutations                                                                                               |          2 |         93 |          0 |         13 |        106 |
+| hooks/supervisor                                                                                              |          5 |        170 |          0 |          9 |        179 |
+| lib                                                                                                           |         16 |        511 |        -11 |         86 |        586 |
+| lib (Files)                                                                                                   |          1 |         75 |        -11 |          3 |         67 |
+| lib/api                                                                                                       |          4 |        183 |          0 |         38 |        221 |
+| lib/api (Files)                                                                                               |          1 |         89 |          0 |         21 |        110 |
+| lib/api/schemas                                                                                               |          3 |         94 |          0 |         17 |        111 |
+| lib/query                                                                                                     |          2 |         34 |          0 |          3 |         37 |
+| lib/utils                                                                                                     |          9 |        219 |          0 |         42 |        261 |
+| test                                                                                                          |          1 |          1 |          0 |          1 |          2 |
++---------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+
+Files
++---------------------------------------------------------------------------------------------------------------+----------------+------------+------------+------------+------------+
+| filename                                                                                                      | language       | code       | comment    | blank      | total      |
++---------------------------------------------------------------------------------------------------------------+----------------+------------+------------+------------+------------+
+| /Users/spursh/Documents/code/hours-frontend-next/app/admin/components/AdminHeader.tsx                         | TypeScript JSX |         24 |          0 |          3 |         27 |
+| /Users/spursh/Documents/code/hours-frontend-next/app/admin/components/AdminStatsCards.tsx                     | TypeScript JSX |         77 |          0 |          8 |         85 |
+| /Users/spursh/Documents/code/hours-frontend-next/app/admin/components/AdminsTab.tsx                           | TypeScript JSX |         81 |          0 |          4 |         85 |
+| /Users/spursh/Documents/code/hours-frontend-next/app/admin/components/BulkRejectDialog.tsx                    | TypeScript JSX |         66 |          0 |          4 |         70 |
+| /Users/spursh/Documents/code/hours-frontend-next/app/admin/components/CreateAdminDialog.tsx                   | TypeScript JSX |        107 |          0 |          4 |        111 |
+| /Users/spursh/Documents/code/hours-frontend-next/app/admin/components/CreateOrganizationDialog.tsx            | TypeScript JSX |         76 |          0 |          4 |         80 |
+| /Users/spursh/Documents/code/hours-frontend-next/app/admin/components/DeleteGraduatedButton.tsx               | TypeScript JSX |         40 |          0 |          4 |         44 |
+| /Users/spursh/Documents/code/hours-frontend-next/app/admin/components/DeleteGraduatedStudentsDialog.tsx       | TypeScript JSX |        122 |          0 |          9 |        131 |
+| /Users/spursh/Documents/code/hours-frontend-next/app/admin/components/DeleteHourDialog.tsx                    | TypeScript JSX |         63 |          0 |          5 |         68 |
+| /Users/spursh/Documents/code/hours-frontend-next/app/admin/components/DialogsContainer.tsx                    | TypeScript JSX |        119 |          0 |          4 |        123 |
+| /Users/spursh/Documents/code/hours-frontend-next/app/admin/components/EditAdminDialog.tsx                     | TypeScript JSX |         76 |          0 |          5 |         81 |
+| /Users/spursh/Documents/code/hours-frontend-next/app/admin/components/EditHourStatusDialog.tsx                | TypeScript JSX |        111 |          0 |          9 |        120 |
+| /Users/spursh/Documents/code/hours-frontend-next/app/admin/components/EditOrganizationDialog.tsx              | TypeScript JSX |         81 |          0 |          5 |         86 |
+| /Users/spursh/Documents/code/hours-frontend-next/app/admin/components/EditUserDialog.tsx                      | TypeScript JSX |        116 |          0 |          5 |        121 |
+| /Users/spursh/Documents/code/hours-frontend-next/app/admin/components/HoursFiltersBar.tsx                     | TypeScript JSX |         50 |          0 |          4 |         54 |
+| /Users/spursh/Documents/code/hours-frontend-next/app/admin/components/HoursTab.tsx                            | TypeScript JSX |         88 |          0 |          4 |         92 |
+| /Users/spursh/Documents/code/hours-frontend-next/app/admin/components/HoursTable.tsx                          | TypeScript JSX |         71 |          0 |          5 |         76 |
+| /Users/spursh/Documents/code/hours-frontend-next/app/admin/components/HoursTableRow.tsx                       | TypeScript JSX |         82 |          0 |          5 |         87 |
+| /Users/spursh/Documents/code/hours-frontend-next/app/admin/components/OrganizationsTab.tsx                    | TypeScript JSX |         97 |          0 |          4 |        101 |
+| /Users/spursh/Documents/code/hours-frontend-next/app/admin/components/OverviewTab.tsx                         | TypeScript JSX |         49 |          0 |          4 |         53 |
+| /Users/spursh/Documents/code/hours-frontend-next/app/admin/components/PasswordResetDialog.tsx                 | TypeScript JSX |         67 |          0 |          5 |         72 |
+| /Users/spursh/Documents/code/hours-frontend-next/app/admin/components/PendingSupervisorApprovals.tsx          | TypeScript JSX |         53 |          0 |          5 |         58 |
+| /Users/spursh/Documents/code/hours-frontend-next/app/admin/components/RecentActivityCard.tsx                  | TypeScript JSX |         66 |          0 |          6 |         72 |
+| /Users/spursh/Documents/code/hours-frontend-next/app/admin/components/SearchAndStatusFilter.tsx               | TypeScript JSX |         42 |          0 |          4 |         46 |
+| /Users/spursh/Documents/code/hours-frontend-next/app/admin/components/StatisticsTab.tsx                       | TypeScript JSX |         95 |          0 |          6 |        101 |
+| /Users/spursh/Documents/code/hours-frontend-next/app/admin/components/StudentsTab.tsx                         | TypeScript JSX |         36 |          0 |          4 |         40 |
+| /Users/spursh/Documents/code/hours-frontend-next/app/admin/components/StudentsTable.tsx                       | TypeScript JSX |         77 |          0 |          4 |         81 |
+| /Users/spursh/Documents/code/hours-frontend-next/app/admin/components/SupervisorsTab.tsx                      | TypeScript JSX |         45 |          0 |          4 |         49 |
+| /Users/spursh/Documents/code/hours-frontend-next/app/admin/components/SupervisorsTable.tsx                    | TypeScript JSX |         74 |          0 |          4 |         78 |
+| /Users/spursh/Documents/code/hours-frontend-next/app/admin/components/SystemStatusCard.tsx                    | TypeScript JSX |         41 |          0 |          4 |         45 |
+| /Users/spursh/Documents/code/hours-frontend-next/app/admin/components/TabsContainer.tsx                       | TypeScript JSX |        101 |          0 |          4 |        105 |
+| /Users/spursh/Documents/code/hours-frontend-next/app/admin/components/TopStudentsCard.tsx                     | TypeScript JSX |         62 |          0 |          5 |         67 |
+| /Users/spursh/Documents/code/hours-frontend-next/app/admin/components/index.ts                                | TypeScript     |         32 |          0 |          1 |         33 |
+| /Users/spursh/Documents/code/hours-frontend-next/app/admin/page.tsx                                           | TypeScript JSX |       -846 |         -9 |        -35 |       -890 |
+| /Users/spursh/Documents/code/hours-frontend-next/app/forgot-password/page.tsx                                 | TypeScript JSX |        193 |          4 |         20 |        217 |
+| /Users/spursh/Documents/code/hours-frontend-next/app/globals.css                                              | CSS            |         96 |          0 |         12 |        108 |
+| /Users/spursh/Documents/code/hours-frontend-next/app/help/page.tsx                                            | TypeScript JSX |         22 |          0 |          0 |         22 |
+| /Users/spursh/Documents/code/hours-frontend-next/app/layout.tsx                                               | TypeScript JSX |         17 |          0 |          0 |         17 |
+| /Users/spursh/Documents/code/hours-frontend-next/app/login/components/StaffLoginForm.tsx                      | TypeScript JSX |         90 |          0 |          9 |         99 |
+| /Users/spursh/Documents/code/hours-frontend-next/app/login/components/StudentLoginForm.tsx                    | TypeScript JSX |         85 |          0 |          9 |         94 |
+| /Users/spursh/Documents/code/hours-frontend-next/app/login/page.tsx                                           | TypeScript JSX |       -337 |        -11 |        -35 |       -383 |
+| /Users/spursh/Documents/code/hours-frontend-next/app/page.tsx                                                 | TypeScript JSX |          1 |          0 |          0 |          1 |
+| /Users/spursh/Documents/code/hours-frontend-next/app/register/components/GraduationYearField.tsx              | TypeScript JSX |         32 |          0 |          4 |         36 |
+| /Users/spursh/Documents/code/hours-frontend-next/app/register/components/OrganizationField.tsx                | TypeScript JSX |         40 |          0 |          4 |         44 |
+| /Users/spursh/Documents/code/hours-frontend-next/app/register/components/ProofTypeField.tsx                   | TypeScript JSX |         30 |          0 |          4 |         34 |
+| /Users/spursh/Documents/code/hours-frontend-next/app/register/components/StaffRegistrationForm.tsx            | TypeScript JSX |         89 |          0 |          7 |         96 |
+| /Users/spursh/Documents/code/hours-frontend-next/app/register/components/StaffRegistrationInfo.tsx            | TypeScript JSX |         13 |          0 |          3 |         16 |
+| /Users/spursh/Documents/code/hours-frontend-next/app/register/components/StudentRegistrationForm.tsx          | TypeScript JSX |         68 |          0 |          7 |         75 |
+| /Users/spursh/Documents/code/hours-frontend-next/app/register/components/VerificationField.tsx                | TypeScript JSX |         24 |          0 |          4 |         28 |
+| /Users/spursh/Documents/code/hours-frontend-next/app/register/page.tsx                                        | TypeScript JSX |       -436 |         -8 |        -41 |       -485 |
+| /Users/spursh/Documents/code/hours-frontend-next/app/reset-password/page.tsx                                  | TypeScript JSX |        274 |          8 |         32 |        314 |
+| /Users/spursh/Documents/code/hours-frontend-next/app/student/dashboard/components/DashboardHero.tsx           | TypeScript JSX |         48 |          0 |          4 |         52 |
+| /Users/spursh/Documents/code/hours-frontend-next/app/student/dashboard/components/EmptyHoursState.tsx         | TypeScript JSX |         27 |          0 |          4 |         31 |
+| /Users/spursh/Documents/code/hours-frontend-next/app/student/dashboard/components/HoursFilters.tsx            | TypeScript JSX |         60 |          0 |          4 |         64 |
+| /Users/spursh/Documents/code/hours-frontend-next/app/student/dashboard/components/HoursTable.tsx              | TypeScript JSX |         81 |          0 |          7 |         88 |
+| /Users/spursh/Documents/code/hours-frontend-next/app/student/dashboard/components/StatsCards.tsx              | TypeScript JSX |         90 |          0 |          7 |         97 |
+| /Users/spursh/Documents/code/hours-frontend-next/app/student/dashboard/components/index.ts                    | TypeScript     |          4 |          0 |          1 |          5 |
+| /Users/spursh/Documents/code/hours-frontend-next/app/student/dashboard/page.tsx                               | TypeScript JSX |       -312 |         -8 |        -23 |       -343 |
+| /Users/spursh/Documents/code/hours-frontend-next/app/student/settings/page.tsx                                | TypeScript JSX |        -42 |         -4 |         -2 |        -48 |
+| /Users/spursh/Documents/code/hours-frontend-next/app/supervisor/dashboard/components/AllHoursFilters.tsx      | TypeScript JSX |         56 |          0 |          4 |         60 |
+| /Users/spursh/Documents/code/hours-frontend-next/app/supervisor/dashboard/components/AllHoursTable.tsx        | TypeScript JSX |        108 |          0 |          6 |        114 |
+| /Users/spursh/Documents/code/hours-frontend-next/app/supervisor/dashboard/components/ApprovalQueueEntry.tsx   | TypeScript JSX |        102 |          0 |          6 |        108 |
+| /Users/spursh/Documents/code/hours-frontend-next/app/supervisor/dashboard/components/ApprovalQueueTab.tsx     | TypeScript JSX |         79 |          0 |          4 |         83 |
+| /Users/spursh/Documents/code/hours-frontend-next/app/supervisor/dashboard/components/BulkRejectDialog.tsx     | TypeScript JSX |         56 |          0 |          4 |         60 |
+| /Users/spursh/Documents/code/hours-frontend-next/app/supervisor/dashboard/components/DeleteHourDialog.tsx     | TypeScript JSX |         35 |          0 |          4 |         39 |
+| /Users/spursh/Documents/code/hours-frontend-next/app/supervisor/dashboard/components/EditHourDialog.tsx       | TypeScript JSX |         92 |          0 |          4 |         96 |
+| /Users/spursh/Documents/code/hours-frontend-next/app/supervisor/dashboard/components/EmptyAllHours.tsx        | TypeScript JSX |         18 |          0 |          4 |         22 |
+| /Users/spursh/Documents/code/hours-frontend-next/app/supervisor/dashboard/components/EmptyApprovalQueue.tsx   | TypeScript JSX |         14 |          0 |          3 |         17 |
+| /Users/spursh/Documents/code/hours-frontend-next/app/supervisor/dashboard/components/SupervisorHero.tsx       | TypeScript JSX |         35 |          0 |          4 |         39 |
+| /Users/spursh/Documents/code/hours-frontend-next/app/supervisor/dashboard/components/SupervisorStatsCards.tsx | TypeScript JSX |         78 |          0 |          7 |         85 |
+| /Users/spursh/Documents/code/hours-frontend-next/app/supervisor/dashboard/components/index.ts                 | TypeScript     |          7 |          0 |          1 |          8 |
+| /Users/spursh/Documents/code/hours-frontend-next/app/supervisor/dashboard/page.tsx                            | TypeScript JSX |       -759 |        -18 |        -53 |       -830 |
+| /Users/spursh/Documents/code/hours-frontend-next/app/unauthorized/page.tsx                                    | TypeScript JSX |         77 |          0 |          9 |         86 |
+| /Users/spursh/Documents/code/hours-frontend-next/components/auth/AuthCardHeader.tsx                           | TypeScript JSX |         19 |          0 |          4 |         23 |
+| /Users/spursh/Documents/code/hours-frontend-next/components/auth/AuthFooterLink.tsx                           | TypeScript JSX |         19 |          0 |          4 |         23 |
+| /Users/spursh/Documents/code/hours-frontend-next/components/auth/AuthPageContainer.tsx                        | TypeScript JSX |         13 |          0 |          4 |         17 |
+| /Users/spursh/Documents/code/hours-frontend-next/components/auth/AuthSecurityBadge.tsx                        | TypeScript JSX |         15 |          0 |          4 |         19 |
+| /Users/spursh/Documents/code/hours-frontend-next/components/auth/AuthTabs.tsx                                 | TypeScript JSX |         28 |          0 |          4 |         32 |
+| /Users/spursh/Documents/code/hours-frontend-next/components/auth/BackButton.tsx                               | TypeScript JSX |         14 |          0 |          3 |         17 |
+| /Users/spursh/Documents/code/hours-frontend-next/components/data/DataTable.tsx                                | TypeScript JSX |         52 |          0 |          5 |         57 |
+| /Users/spursh/Documents/code/hours-frontend-next/components/feedback/EmailVerificationAlert.tsx               | TypeScript JSX |         68 |          0 |          8 |         76 |
+| /Users/spursh/Documents/code/hours-frontend-next/components/feedback/EmptyState.tsx                           | TypeScript JSX |         23 |          0 |          3 |         26 |
+| /Users/spursh/Documents/code/hours-frontend-next/components/feedback/ErrorState.tsx                           | TypeScript JSX |         31 |          0 |          5 |         36 |
+| /Users/spursh/Documents/code/hours-frontend-next/components/feedback/LoadingSpinner.tsx                       | TypeScript JSX |         29 |          0 |          6 |         35 |
+| /Users/spursh/Documents/code/hours-frontend-next/components/feedback/index.ts                                 | TypeScript     |          3 |          0 |          1 |          4 |
+| /Users/spursh/Documents/code/hours-frontend-next/components/forms/Field.tsx                                   | TypeScript JSX |         42 |          0 |          6 |         48 |
+| /Users/spursh/Documents/code/hours-frontend-next/components/forms/Form.tsx                                    | TypeScript JSX |         23 |          0 |          4 |         27 |
+| /Users/spursh/Documents/code/hours-frontend-next/components/forms/FormAlerts.tsx                              | TypeScript JSX |         26 |          0 |          5 |         31 |
+| /Users/spursh/Documents/code/hours-frontend-next/components/forms/PasswordField.tsx                           | TypeScript JSX |         51 |          0 |          5 |         56 |
+| /Users/spursh/Documents/code/hours-frontend-next/components/forms/SubmitButton.tsx                            | TypeScript JSX |         29 |          0 |          4 |         33 |
+| /Users/spursh/Documents/code/hours-frontend-next/components/layout/bottom-tabs.tsx                            | TypeScript JSX |          1 |          0 |          0 |          1 |
+| /Users/spursh/Documents/code/hours-frontend-next/components/layout/top-nav.tsx                                | TypeScript JSX |          2 |          0 |          0 |          2 |
+| /Users/spursh/Documents/code/hours-frontend-next/components/providers/Providers.tsx                           | TypeScript JSX |         16 |          0 |          4 |         20 |
+| /Users/spursh/Documents/code/hours-frontend-next/components/ui/dialog.tsx                                     | TypeScript JSX |         -2 |          0 |          0 |         -2 |
+| /Users/spursh/Documents/code/hours-frontend-next/components/ui/organization-selector.tsx                      | TypeScript JSX |          1 |          0 |          0 |          1 |
+| /Users/spursh/Documents/code/hours-frontend-next/contexts/AuthContext.tsx                                     | TypeScript JSX |          7 |          2 |          0 |          9 |
+| /Users/spursh/Documents/code/hours-frontend-next/eslint.config.mjs                                            | JavaScript     |          1 |          0 |          1 |          2 |
+| /Users/spursh/Documents/code/hours-frontend-next/hooks/admin/useAdminAdminActions.ts                          | TypeScript     |         30 |          0 |          2 |         32 |
+| /Users/spursh/Documents/code/hours-frontend-next/hooks/admin/useAdminAdminHandlers.ts                         | TypeScript     |          8 |          0 |          2 |         10 |
+| /Users/spursh/Documents/code/hours-frontend-next/hooks/admin/useAdminAdminManagement.ts                       | TypeScript     |         63 |          0 |          2 |         65 |
+| /Users/spursh/Documents/code/hours-frontend-next/hooks/admin/useAdminData.ts                                  | TypeScript     |         52 |          0 |          2 |         54 |
+| /Users/spursh/Documents/code/hours-frontend-next/hooks/admin/useAdminDialogState.ts                           | TypeScript     |         45 |          0 |          2 |         47 |
+| /Users/spursh/Documents/code/hours-frontend-next/hooks/admin/useAdminFilterState.ts                           | TypeScript     |         17 |          0 |          2 |         19 |
+| /Users/spursh/Documents/code/hours-frontend-next/hooks/admin/useAdminFiltering.ts                             | TypeScript     |         37 |          0 |          2 |         39 |
+| /Users/spursh/Documents/code/hours-frontend-next/hooks/admin/useAdminGraduatedStudents.ts                     | TypeScript     |         39 |          0 |          2 |         41 |
+| /Users/spursh/Documents/code/hours-frontend-next/hooks/admin/useAdminHourActions.ts                           | TypeScript     |         56 |          0 |          2 |         58 |
+| /Users/spursh/Documents/code/hours-frontend-next/hooks/admin/useAdminHoursActions.ts                          | TypeScript     |         83 |          0 |          2 |         85 |
+| /Users/spursh/Documents/code/hours-frontend-next/hooks/admin/useAdminHoursHandlers.ts                         | TypeScript     |          8 |          0 |          2 |         10 |
+| /Users/spursh/Documents/code/hours-frontend-next/hooks/admin/useAdminHoursSelection.ts                        | TypeScript     |         36 |          0 |          2 |         38 |
+| /Users/spursh/Documents/code/hours-frontend-next/hooks/admin/useAdminOrgHandlers.ts                           | TypeScript     |         75 |          0 |         10 |         85 |
+| /Users/spursh/Documents/code/hours-frontend-next/hooks/admin/useAdminOrganizationActions.ts                   | TypeScript     |         44 |          0 |          2 |         46 |
+| /Users/spursh/Documents/code/hours-frontend-next/hooks/admin/useAdminState.ts                                 | TypeScript     |         36 |          0 |          2 |         38 |
+| /Users/spursh/Documents/code/hours-frontend-next/hooks/admin/useAdminStudentActions.ts                        | TypeScript     |         64 |          0 |          2 |         66 |
+| /Users/spursh/Documents/code/hours-frontend-next/hooks/admin/useAdminSupervHandlers.ts                        | TypeScript     |         34 |          0 |          6 |         40 |
+| /Users/spursh/Documents/code/hours-frontend-next/hooks/admin/useAdminSupervisorActions.ts                     | TypeScript     |         67 |          0 |          2 |         69 |
+| /Users/spursh/Documents/code/hours-frontend-next/hooks/admin/useAdminUserHandlers.ts                          | TypeScript     |         86 |          0 |         12 |         98 |
+| /Users/spursh/Documents/code/hours-frontend-next/hooks/mutations/useLogin.ts                                  | TypeScript     |         64 |          0 |          8 |         72 |
+| /Users/spursh/Documents/code/hours-frontend-next/hooks/mutations/useRegister.ts                               | TypeScript     |         29 |          0 |          5 |         34 |
+| /Users/spursh/Documents/code/hours-frontend-next/hooks/supervisor/useSupervisorBulkActions.ts                 | TypeScript     |         45 |          0 |          2 |         47 |
+| /Users/spursh/Documents/code/hours-frontend-next/hooks/supervisor/useSupervisorEditActions.ts                 | TypeScript     |         50 |          0 |          2 |         52 |
+| /Users/spursh/Documents/code/hours-frontend-next/hooks/supervisor/useSupervisorIndividualActions.ts           | TypeScript     |         36 |          0 |          2 |         38 |
+| /Users/spursh/Documents/code/hours-frontend-next/hooks/supervisor/useSupervisorSelection.ts                   | TypeScript     |         21 |          0 |          1 |         22 |
+| /Users/spursh/Documents/code/hours-frontend-next/hooks/supervisor/useSupervisorState.ts                       | TypeScript     |         18 |          0 |          2 |         20 |
+| /Users/spursh/Documents/code/hours-frontend-next/hooks/useAdminDashboard.ts                                   | TypeScript     |       -242 |          0 |        -24 |       -266 |
+| /Users/spursh/Documents/code/hours-frontend-next/hooks/useAdminDialogs.ts                                     | TypeScript     |         45 |          0 |          4 |         49 |
+| /Users/spursh/Documents/code/hours-frontend-next/hooks/useAdminFilters.ts                                     | TypeScript     |         64 |          0 |         11 |         75 |
+| /Users/spursh/Documents/code/hours-frontend-next/hooks/useHoursFilter.ts                                      | TypeScript     |         13 |          0 |          2 |         15 |
+| /Users/spursh/Documents/code/hours-frontend-next/hooks/useSupervisorActions.ts                                | TypeScript     |         26 |          0 |          3 |         29 |
+| /Users/spursh/Documents/code/hours-frontend-next/hooks/useSupervisorFilter.ts                                 | TypeScript     |         15 |          0 |          4 |         19 |
+| /Users/spursh/Documents/code/hours-frontend-next/hooks/useSupervisorStats.ts                                  | TypeScript     |         14 |          0 |          3 |         17 |
+| /Users/spursh/Documents/code/hours-frontend-next/lib/api-client.ts                                            | TypeScript     |         75 |        -11 |          3 |         67 |
+| /Users/spursh/Documents/code/hours-frontend-next/lib/api/endpoints.ts                                         | TypeScript     |         89 |          0 |         21 |        110 |
+| /Users/spursh/Documents/code/hours-frontend-next/lib/api/schemas/auth.ts                                      | TypeScript     |         47 |          0 |          7 |         54 |
+| /Users/spursh/Documents/code/hours-frontend-next/lib/api/schemas/hours.ts                                     | TypeScript     |         22 |          0 |          5 |         27 |
+| /Users/spursh/Documents/code/hours-frontend-next/lib/api/schemas/users.ts                                     | TypeScript     |         25 |          0 |          5 |         30 |
+| /Users/spursh/Documents/code/hours-frontend-next/lib/query/keys.ts                                            | TypeScript     |         24 |          0 |          1 |         25 |
+| /Users/spursh/Documents/code/hours-frontend-next/lib/query/queryClient.ts                                     | TypeScript     |         10 |          0 |          2 |         12 |
+| /Users/spursh/Documents/code/hours-frontend-next/lib/utils/csv-export.ts                                      | TypeScript     |         28 |          0 |          4 |         32 |
+| /Users/spursh/Documents/code/hours-frontend-next/lib/utils/error-messages.ts                                  | TypeScript     |         16 |          0 |          3 |         19 |
+| /Users/spursh/Documents/code/hours-frontend-next/lib/utils/graduation-year.ts                                 | TypeScript     |          7 |          0 |          1 |          8 |
+| /Users/spursh/Documents/code/hours-frontend-next/lib/utils/hours-export.ts                                    | TypeScript     |         27 |          0 |          6 |         33 |
+| /Users/spursh/Documents/code/hours-frontend-next/lib/utils/registration-errors.ts                             | TypeScript     |         40 |          0 |          6 |         46 |
+| /Users/spursh/Documents/code/hours-frontend-next/lib/utils/staff-registration.ts                              | TypeScript     |         16 |          0 |          3 |         19 |
+| /Users/spursh/Documents/code/hours-frontend-next/lib/utils/student-helpers.ts                                 | TypeScript     |         22 |          0 |          4 |         26 |
+| /Users/spursh/Documents/code/hours-frontend-next/lib/utils/supervisor-export.ts                               | TypeScript     |         29 |          0 |          9 |         38 |
+| /Users/spursh/Documents/code/hours-frontend-next/lib/utils/supervisor-helpers.ts                              | TypeScript     |         34 |          0 |          6 |         40 |
+| /Users/spursh/Documents/code/hours-frontend-next/middleware.ts                                                | TypeScript     |         17 |          8 |          0 |         25 |
+| /Users/spursh/Documents/code/hours-frontend-next/package-lock.json                                            | JSON           |      5,021 |          0 |          0 |      5,021 |
+| /Users/spursh/Documents/code/hours-frontend-next/package.json                                                 | JSON           |         28 |          0 |          0 |         28 |
+| /Users/spursh/Documents/code/hours-frontend-next/playwright.config.ts                                         | TypeScript     |         24 |          0 |          2 |         26 |
+| /Users/spursh/Documents/code/hours-frontend-next/pnpm-lock.yaml                                               | YAML           |      2,625 |          0 |        465 |      3,090 |
+| /Users/spursh/Documents/code/hours-frontend-next/test/setup.ts                                                | TypeScript     |          1 |          0 |          1 |          2 |
+| /Users/spursh/Documents/code/hours-frontend-next/vitest.config.ts                                             | TypeScript     |         16 |          0 |          2 |         18 |
+| Total                                                                                                         |                |     11,628 |        -47 |        889 |     12,470 |
++---------------------------------------------------------------------------------------------------------------+----------------+------------+------------+------------+------------+

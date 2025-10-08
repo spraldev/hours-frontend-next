@@ -1,0 +1,97 @@
+"filename", "language", "JSON with Comments", "TypeScript", "JSON", "TypeScript JSX", "XML", "YAML", "JavaScript", "CSS", "comment", "blank", "total"
+"/Users/spursh/Documents/code/hours-frontend-next/app/admin/debug/loading.tsx", "TypeScript JSX", 0, 0, 0, 3, 0, 0, 0, 0, 0, 1, 4
+"/Users/spursh/Documents/code/hours-frontend-next/app/admin/debug/page.tsx", "TypeScript JSX", 0, 0, 0, 368, 0, 0, 0, 0, 4, 16, 388
+"/Users/spursh/Documents/code/hours-frontend-next/app/admin/page.tsx", "TypeScript JSX", 0, 0, 0, 886, 0, 0, 0, 0, 9, 36, 931
+"/Users/spursh/Documents/code/hours-frontend-next/app/globals.css", "CSS", 0, 0, 0, 0, 0, 0, 0, 211, 6, 20, 237
+"/Users/spursh/Documents/code/hours-frontend-next/app/help/page.tsx", "TypeScript JSX", 0, 0, 0, 112, 0, 0, 0, 0, 0, 7, 119
+"/Users/spursh/Documents/code/hours-frontend-next/app/layout.tsx", "TypeScript JSX", 0, 0, 0, 36, 0, 0, 0, 0, 0, 3, 39
+"/Users/spursh/Documents/code/hours-frontend-next/app/login/page.tsx", "TypeScript JSX", 0, 0, 0, 369, 0, 0, 0, 0, 11, 39, 419
+"/Users/spursh/Documents/code/hours-frontend-next/app/page.tsx", "TypeScript JSX", 0, 0, 0, 206, 0, 0, 0, 0, 8, 17, 231
+"/Users/spursh/Documents/code/hours-frontend-next/app/register/page.tsx", "TypeScript JSX", 0, 0, 0, 468, 0, 0, 0, 0, 8, 45, 521
+"/Users/spursh/Documents/code/hours-frontend-next/app/student/dashboard/page.tsx", "TypeScript JSX", 0, 0, 0, 350, 0, 0, 0, 0, 8, 25, 383
+"/Users/spursh/Documents/code/hours-frontend-next/app/student/hours/add/page.tsx", "TypeScript JSX", 0, 0, 0, 188, 0, 0, 0, 0, 4, 19, 211
+"/Users/spursh/Documents/code/hours-frontend-next/app/student/settings/page.tsx", "TypeScript JSX", 0, 0, 0, 240, 0, 0, 0, 0, 12, 21, 273
+"/Users/spursh/Documents/code/hours-frontend-next/app/supervisor/dashboard/page.tsx", "TypeScript JSX", 0, 0, 0, 794, 0, 0, 0, 0, 18, 56, 868
+"/Users/spursh/Documents/code/hours-frontend-next/app/supervisor/settings/page.tsx", "TypeScript JSX", 0, 0, 0, 251, 0, 0, 0, 0, 12, 21, 284
+"/Users/spursh/Documents/code/hours-frontend-next/app/verify-email/page.tsx", "TypeScript JSX", 0, 0, 0, 172, 0, 0, 0, 0, 6, 27, 205
+"/Users/spursh/Documents/code/hours-frontend-next/components.json", "JSON", 0, 0, 21, 0, 0, 0, 0, 0, 0, 1, 22
+"/Users/spursh/Documents/code/hours-frontend-next/components/layout/app-shell.tsx", "TypeScript JSX", 0, 0, 0, 15, 0, 0, 0, 0, 0, 4, 19
+"/Users/spursh/Documents/code/hours-frontend-next/components/layout/bottom-tabs.tsx", "TypeScript JSX", 0, 0, 0, 64, 0, 0, 0, 0, 0, 7, 71
+"/Users/spursh/Documents/code/hours-frontend-next/components/layout/page-header.tsx", "TypeScript JSX", 0, 0, 0, 29, 0, 0, 0, 0, 0, 4, 33
+"/Users/spursh/Documents/code/hours-frontend-next/components/layout/top-nav.tsx", "TypeScript JSX", 0, 0, 0, 99, 0, 0, 0, 0, 3, 14, 116
+"/Users/spursh/Documents/code/hours-frontend-next/components/theme-provider.tsx", "TypeScript JSX", 0, 0, 0, 9, 0, 0, 0, 0, 0, 3, 12
+"/Users/spursh/Documents/code/hours-frontend-next/components/ui/accordion.tsx", "TypeScript JSX", 0, 0, 0, 59, 0, 0, 0, 0, 0, 8, 67
+"/Users/spursh/Documents/code/hours-frontend-next/components/ui/alert-dialog.tsx", "TypeScript JSX", 0, 0, 0, 143, 0, 0, 0, 0, 0, 15, 158
+"/Users/spursh/Documents/code/hours-frontend-next/components/ui/alert.tsx", "TypeScript JSX", 0, 0, 0, 60, 0, 0, 0, 0, 0, 7, 67
+"/Users/spursh/Documents/code/hours-frontend-next/components/ui/animated-counter.tsx", "TypeScript JSX", 0, 0, 0, 20, 0, 0, 0, 0, 0, 6, 26
+"/Users/spursh/Documents/code/hours-frontend-next/components/ui/aspect-ratio.tsx", "TypeScript JSX", 0, 0, 0, 8, 0, 0, 0, 0, 0, 4, 12
+"/Users/spursh/Documents/code/hours-frontend-next/components/ui/avatar.tsx", "TypeScript JSX", 0, 0, 0, 47, 0, 0, 0, 0, 0, 7, 54
+"/Users/spursh/Documents/code/hours-frontend-next/components/ui/badge.tsx", "TypeScript JSX", 0, 0, 0, 41, 0, 0, 0, 0, 0, 6, 47
+"/Users/spursh/Documents/code/hours-frontend-next/components/ui/breadcrumb.tsx", "TypeScript JSX", 0, 0, 0, 99, 0, 0, 0, 0, 0, 11, 110
+"/Users/spursh/Documents/code/hours-frontend-next/components/ui/button.tsx", "TypeScript JSX", 0, 0, 0, 53, 0, 0, 0, 0, 0, 6, 59
+"/Users/spursh/Documents/code/hours-frontend-next/components/ui/calendar.tsx", "TypeScript JSX", 0, 0, 0, 203, 0, 0, 0, 0, 0, 11, 214
+"/Users/spursh/Documents/code/hours-frontend-next/components/ui/card.tsx", "TypeScript JSX", 0, 0, 0, 94, 0, 0, 0, 0, 0, 13, 107
+"/Users/spursh/Documents/code/hours-frontend-next/components/ui/carousel.tsx", "TypeScript JSX", 0, 0, 0, 214, 0, 0, 0, 0, 0, 28, 242
+"/Users/spursh/Documents/code/hours-frontend-next/components/ui/chart.tsx", "TypeScript JSX", 0, 0, 0, 315, 0, 0, 0, 0, 2, 37, 354
+"/Users/spursh/Documents/code/hours-frontend-next/components/ui/checkbox.tsx", "TypeScript JSX", 0, 0, 0, 28, 0, 0, 0, 0, 0, 5, 33
+"/Users/spursh/Documents/code/hours-frontend-next/components/ui/collapsible.tsx", "TypeScript JSX", 0, 0, 0, 28, 0, 0, 0, 0, 0, 6, 34
+"/Users/spursh/Documents/code/hours-frontend-next/components/ui/command.tsx", "TypeScript JSX", 0, 0, 0, 172, 0, 0, 0, 0, 0, 13, 185
+"/Users/spursh/Documents/code/hours-frontend-next/components/ui/context-menu.tsx", "TypeScript JSX", 0, 0, 0, 234, 0, 0, 0, 0, 0, 19, 253
+"/Users/spursh/Documents/code/hours-frontend-next/components/ui/dialog.tsx", "TypeScript JSX", 0, 0, 0, 130, 0, 0, 0, 0, 0, 14, 144
+"/Users/spursh/Documents/code/hours-frontend-next/components/ui/drawer.tsx", "TypeScript JSX", 0, 0, 0, 122, 0, 0, 0, 0, 0, 14, 136
+"/Users/spursh/Documents/code/hours-frontend-next/components/ui/dropdown-menu.tsx", "TypeScript JSX", 0, 0, 0, 240, 0, 0, 0, 0, 0, 19, 259
+"/Users/spursh/Documents/code/hours-frontend-next/components/ui/form.tsx", "TypeScript JSX", 0, 0, 0, 143, 0, 0, 0, 0, 0, 25, 168
+"/Users/spursh/Documents/code/hours-frontend-next/components/ui/gradient-card.tsx", "TypeScript JSX", 0, 0, 0, 26, 0, 0, 0, 0, 0, 3, 29
+"/Users/spursh/Documents/code/hours-frontend-next/components/ui/hover-card.tsx", "TypeScript JSX", 0, 0, 0, 38, 0, 0, 0, 0, 0, 7, 45
+"/Users/spursh/Documents/code/hours-frontend-next/components/ui/input-otp.tsx", "TypeScript JSX", 0, 0, 0, 69, 0, 0, 0, 0, 0, 9, 78
+"/Users/spursh/Documents/code/hours-frontend-next/components/ui/input.tsx", "TypeScript JSX", 0, 0, 0, 18, 0, 0, 0, 0, 0, 4, 22
+"/Users/spursh/Documents/code/hours-frontend-next/components/ui/label.tsx", "TypeScript JSX", 0, 0, 0, 20, 0, 0, 0, 0, 0, 5, 25
+"/Users/spursh/Documents/code/hours-frontend-next/components/ui/loading-spinner.tsx", "TypeScript JSX", 0, 0, 0, 23, 0, 0, 0, 0, 0, 5, 28
+"/Users/spursh/Documents/code/hours-frontend-next/components/ui/menubar.tsx", "TypeScript JSX", 0, 0, 0, 257, 0, 0, 0, 0, 0, 20, 277
+"/Users/spursh/Documents/code/hours-frontend-next/components/ui/mouse-tracking-card.tsx", "TypeScript JSX", 0, 0, 0, 84, 0, 0, 0, 0, 3, 9, 96
+"/Users/spursh/Documents/code/hours-frontend-next/components/ui/navigation-menu.tsx", "TypeScript JSX", 0, 0, 0, 155, 0, 0, 0, 0, 0, 12, 167
+"/Users/spursh/Documents/code/hours-frontend-next/components/ui/organization-selector.tsx", "TypeScript JSX", 0, 0, 0, 292, 0, 0, 0, 0, 13, 22, 327
+"/Users/spursh/Documents/code/hours-frontend-next/components/ui/page-transition.tsx", "TypeScript JSX", 0, 0, 0, 21, 0, 0, 0, 0, 0, 4, 25
+"/Users/spursh/Documents/code/hours-frontend-next/components/ui/pagination.tsx", "TypeScript JSX", 0, 0, 0, 117, 0, 0, 0, 0, 0, 11, 128
+"/Users/spursh/Documents/code/hours-frontend-next/components/ui/popover.tsx", "TypeScript JSX", 0, 0, 0, 41, 0, 0, 0, 0, 0, 8, 49
+"/Users/spursh/Documents/code/hours-frontend-next/components/ui/progress.tsx", "TypeScript JSX", 0, 0, 0, 27, 0, 0, 0, 0, 0, 5, 32
+"/Users/spursh/Documents/code/hours-frontend-next/components/ui/qr-scanner.tsx", "TypeScript JSX", 0, 0, 0, 157, 0, 0, 0, 0, 5, 15, 177
+"/Users/spursh/Documents/code/hours-frontend-next/components/ui/radio-group.tsx", "TypeScript JSX", 0, 0, 0, 40, 0, 0, 0, 0, 0, 6, 46
+"/Users/spursh/Documents/code/hours-frontend-next/components/ui/resizable.tsx", "TypeScript JSX", 0, 0, 0, 50, 0, 0, 0, 0, 0, 7, 57
+"/Users/spursh/Documents/code/hours-frontend-next/components/ui/scroll-area.tsx", "TypeScript JSX", 0, 0, 0, 53, 0, 0, 0, 0, 0, 6, 59
+"/Users/spursh/Documents/code/hours-frontend-next/components/ui/select.tsx", "TypeScript JSX", 0, 0, 0, 172, 0, 0, 0, 0, 0, 14, 186
+"/Users/spursh/Documents/code/hours-frontend-next/components/ui/separator.tsx", "TypeScript JSX", 0, 0, 0, 24, 0, 0, 0, 0, 0, 5, 29
+"/Users/spursh/Documents/code/hours-frontend-next/components/ui/sheet.tsx", "TypeScript JSX", 0, 0, 0, 126, 0, 0, 0, 0, 0, 14, 140
+"/Users/spursh/Documents/code/hours-frontend-next/components/ui/sidebar.tsx", "TypeScript JSX", 0, 0, 0, 660, 0, 0, 0, 0, 12, 55, 727
+"/Users/spursh/Documents/code/hours-frontend-next/components/ui/skeleton.tsx", "TypeScript JSX", 0, 0, 0, 11, 0, 0, 0, 0, 0, 3, 14
+"/Users/spursh/Documents/code/hours-frontend-next/components/ui/slider.tsx", "TypeScript JSX", 0, 0, 0, 58, 0, 0, 0, 0, 0, 6, 64
+"/Users/spursh/Documents/code/hours-frontend-next/components/ui/sonner.tsx", "TypeScript JSX", 0, 0, 0, 21, 0, 0, 0, 0, 0, 5, 26
+"/Users/spursh/Documents/code/hours-frontend-next/components/ui/success-animation.tsx", "TypeScript JSX", 0, 0, 0, 45, 0, 0, 0, 0, 0, 5, 50
+"/Users/spursh/Documents/code/hours-frontend-next/components/ui/switch.tsx", "TypeScript JSX", 0, 0, 0, 27, 0, 0, 0, 0, 0, 5, 32
+"/Users/spursh/Documents/code/hours-frontend-next/components/ui/table.tsx", "TypeScript JSX", 0, 0, 0, 105, 0, 0, 0, 0, 0, 12, 117
+"/Users/spursh/Documents/code/hours-frontend-next/components/ui/tabs.tsx", "TypeScript JSX", 0, 0, 0, 59, 0, 0, 0, 0, 0, 8, 67
+"/Users/spursh/Documents/code/hours-frontend-next/components/ui/textarea.tsx", "TypeScript JSX", 0, 0, 0, 15, 0, 0, 0, 0, 0, 4, 19
+"/Users/spursh/Documents/code/hours-frontend-next/components/ui/toggle-group.tsx", "TypeScript JSX", 0, 0, 0, 66, 0, 0, 0, 0, 0, 8, 74
+"/Users/spursh/Documents/code/hours-frontend-next/components/ui/toggle.tsx", "TypeScript JSX", 0, 0, 0, 42, 0, 0, 0, 0, 0, 6, 48
+"/Users/spursh/Documents/code/hours-frontend-next/components/ui/tooltip.tsx", "TypeScript JSX", 0, 0, 0, 54, 0, 0, 0, 0, 0, 8, 62
+"/Users/spursh/Documents/code/hours-frontend-next/components/ui/use-mobile.tsx", "TypeScript JSX", 0, 0, 0, 15, 0, 0, 0, 0, 0, 5, 20
+"/Users/spursh/Documents/code/hours-frontend-next/contexts/AuthContext.tsx", "TypeScript JSX", 0, 0, 0, 87, 0, 0, 0, 0, 1, 20, 108
+"/Users/spursh/Documents/code/hours-frontend-next/hooks/use-mobile.ts", "TypeScript", 0, 15, 0, 0, 0, 0, 0, 0, 0, 5, 20
+"/Users/spursh/Documents/code/hours-frontend-next/hooks/use-mouse-position.ts", "TypeScript", 0, 55, 0, 0, 0, 0, 0, 0, 0, 17, 72
+"/Users/spursh/Documents/code/hours-frontend-next/hooks/useAdminDashboard.ts", "TypeScript", 0, 257, 0, 0, 0, 0, 0, 0, 0, 26, 283
+"/Users/spursh/Documents/code/hours-frontend-next/hooks/useStudentDashboard.ts", "TypeScript", 0, 45, 0, 0, 0, 0, 0, 0, 0, 9, 54
+"/Users/spursh/Documents/code/hours-frontend-next/hooks/useSupervisorDashboard.ts", "TypeScript", 0, 77, 0, 0, 0, 0, 0, 0, 0, 13, 90
+"/Users/spursh/Documents/code/hours-frontend-next/lib/api-client.ts", "TypeScript", 0, 94, 0, 0, 0, 0, 0, 0, 19, 25, 138
+"/Users/spursh/Documents/code/hours-frontend-next/lib/utils.ts", "TypeScript", 0, 5, 0, 0, 0, 0, 0, 0, 0, 2, 7
+"/Users/spursh/Documents/code/hours-frontend-next/middleware.ts", "TypeScript", 0, 34, 0, 0, 0, 0, 0, 0, 0, 19, 53
+"/Users/spursh/Documents/code/hours-frontend-next/next.config.mjs", "JavaScript", 0, 0, 0, 0, 0, 0, 12, 0, 1, 2, 15
+"/Users/spursh/Documents/code/hours-frontend-next/package-lock.json", "JSON", 0, 0, 3693, 0, 0, 0, 0, 0, 0, 1, 3694
+"/Users/spursh/Documents/code/hours-frontend-next/package.json", "JSON", 0, 0, 77, 0, 0, 0, 0, 0, 0, 1, 78
+"/Users/spursh/Documents/code/hours-frontend-next/pnpm-lock.yaml", "YAML", 0, 0, 0, 0, 0, 4, 0, 0, 0, 1, 5
+"/Users/spursh/Documents/code/hours-frontend-next/postcss.config.mjs", "JavaScript", 0, 0, 0, 0, 0, 0, 6, 0, 1, 2, 9
+"/Users/spursh/Documents/code/hours-frontend-next/public/placeholder-logo.svg", "XML", 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1
+"/Users/spursh/Documents/code/hours-frontend-next/public/placeholder.svg", "XML", 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1
+"/Users/spursh/Documents/code/hours-frontend-next/styles/globals.css", "CSS", 0, 0, 0, 0, 0, 0, 0, 151, 4, 13, 168
+"/Users/spursh/Documents/code/hours-frontend-next/tsconfig.json", "JSON with Comments", 27, 0, 0, 0, 0, 0, 0, 0, 0, 1, 28
+"/Users/spursh/Documents/code/hours-frontend-next/types/api.ts", "TypeScript", 0, 167, 0, 0, 0, 0, 0, 0, 1, 18, 186
+"Total", "-", 27, 749, 3791, 10187, 2, 4, 18, 362, 171, 1156, 16467
