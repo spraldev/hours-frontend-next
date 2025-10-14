@@ -11,14 +11,22 @@ interface EditUserDialogProps {
   open: boolean
   onOpenChange: (open: boolean) => void
   user: any | null
-  userType: 'student' | 'supervisor'
+  onUserChange: (user: any) => void
   onSave: () => void
-  onUpdateField: (field: string, value: any) => void
+  onResetPassword?: () => void
   isProcessing: boolean
 }
 
-export function EditUserDialog({ open, onOpenChange, user, userType, onSave, onUpdateField, isProcessing }: EditUserDialogProps) {
+export function EditUserDialog({ open, onOpenChange, user, onUserChange, onSave, isProcessing }: EditUserDialogProps) {
   if (!user) return null
+
+  // Determine user type from the user object
+  const userType: 'student' | 'supervisor' = user.studentId ? 'student' : 'supervisor'
+
+  // Helper function to update a field
+  const onUpdateField = (field: string, value: any) => {
+    onUserChange({ ...user, [field]: value })
+  }
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
@@ -79,7 +87,7 @@ export function EditUserDialog({ open, onOpenChange, user, userType, onSave, onU
             </>
           )}
           <div className="flex items-center justify-between">
-            <Label htmlFor="edit-isActive">Active Status</Label>
+            <Label htmlFor="edit-isActive">{userType === 'supervisor' ? 'Active Status (Pending if inactive)' : 'Active Status'}</Label>
             <Switch
               id="edit-isActive"
               checked={user.isActive}
@@ -87,17 +95,6 @@ export function EditUserDialog({ open, onOpenChange, user, userType, onSave, onU
               disabled={isProcessing}
             />
           </div>
-          {userType === 'supervisor' && (
-            <div className="flex items-center justify-between">
-              <Label htmlFor="edit-isApproved">Approved</Label>
-              <Switch
-                id="edit-isApproved"
-                checked={user.isApproved}
-                onCheckedChange={(checked) => onUpdateField('isApproved', checked)}
-                disabled={isProcessing}
-              />
-            </div>
-          )}
         </div>
         <DialogFooter>
           <Button variant="outline" onClick={() => onOpenChange(false)} disabled={isProcessing}>

@@ -19,6 +19,8 @@ export function useAdminUserHandlers(state: any) {
           lastName: state.editingUser.lastName,
           email: state.editingUser.email,
           graduatingYear: state.editingUser.graduatingYear,
+          grade: state.editingUser.grade,
+          isActive: state.editingUser.isActive,
         })
         if (success) {
           toast.success('Student updated successfully')
@@ -30,6 +32,7 @@ export function useAdminUserHandlers(state: any) {
           firstName: state.editingUser.firstName,
           lastName: state.editingUser.lastName,
           email: state.editingUser.email,
+          isActive: state.editingUser.isActive,
         })
         if (success) {
           toast.success('Supervisor updated successfully')

@@ -4,15 +4,16 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@
 import { Avatar, AvatarFallback } from '@/components/ui/avatar'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
-import { Edit } from 'lucide-react'
+import { Edit, Eye } from 'lucide-react'
 
 interface StudentsTableProps {
   students: any[]
   onEditStudent: (student: any) => void
+  onViewHours?: (student: any) => void
   isProcessing: boolean
 }
 
-export function StudentsTable({ students, onEditStudent, isProcessing }: StudentsTableProps) {
+export function StudentsTable({ students, onEditStudent, onViewHours, isProcessing }: StudentsTableProps) {
   return (
     <div className="overflow-x-auto">
       <Table>
@@ -22,7 +23,7 @@ export function StudentsTable({ students, onEditStudent, isProcessing }: Student
             <TableHead>Grade</TableHead>
             <TableHead>Status</TableHead>
             <TableHead>Total Hours</TableHead>
-            <TableHead className="w-[50px]"></TableHead>
+            <TableHead className="w-[100px]"></TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
@@ -66,9 +67,16 @@ export function StudentsTable({ students, onEditStudent, isProcessing }: Student
                   <span className="font-medium">{student.totalHours || 0}h</span>
                 </TableCell>
                 <TableCell>
-                  <Button variant="ghost" size="icon" onClick={() => onEditStudent(student)} disabled={isProcessing}>
-                    <Edit className="h-4 w-4" />
-                  </Button>
+                  <div className="flex gap-1">
+                    {onViewHours && (
+                      <Button variant="ghost" size="icon" onClick={() => onViewHours(student)} disabled={isProcessing} title="View hours">
+                        <Eye className="h-4 w-4" />
+                      </Button>
+                    )}
+                    <Button variant="ghost" size="icon" onClick={() => onEditStudent(student)} disabled={isProcessing} title="Edit student">
+                      <Edit className="h-4 w-4" />
+                    </Button>
+                  </div>
                 </TableCell>
               </TableRow>
             ))

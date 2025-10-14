@@ -34,8 +34,8 @@ export function SystemStatusCard({ hours, students, supervisors }: SystemStatusC
             <div className="text-sm text-muted-foreground">Active Students</div>
           </div>
           <div className="text-center p-3 rounded-lg bg-purple-50 dark:bg-purple-950/20 border border-purple-200 dark:border-purple-800">
-            <div className="text-2xl font-bold text-purple-600">{supervisors.filter((s) => s.isApproved).length}</div>
-            <div className="text-sm text-muted-foreground">Approved Supervisors</div>
+            <div className="text-2xl font-bold text-purple-600">{supervisors.filter((s) => s.isActive).length}</div>
+            <div className="text-sm text-muted-foreground">Active Supervisors</div>
           </div>
         </div>
       </CardContent>

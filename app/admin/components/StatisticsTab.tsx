@@ -18,7 +18,7 @@ export function StatisticsTab({ students, supervisors, hours, organizations }: S
   const safeOrganizations = organizations || []
   
   const activeStudents = safeStudents.filter((s) => s.isActive).length
-  const approvedSupervisors = safeSupervisors.filter((s) => s.isApproved).length
+  const activeSupervisors = safeSupervisors.filter((s) => s.isActive).length
   const activeOrganizations = safeOrganizations.filter((o) => o.isActive).length
   const totalHours = safeHours.reduce((sum, h) => sum + h.hours, 0)
   const approvedHours = safeHours.filter((h) => h.status === 'approved').reduce((sum, h) => sum + h.hours, 0)
@@ -53,10 +53,10 @@ export function StatisticsTab({ students, supervisors, hours, organizations }: S
               </div>
             </div>
             <div className="text-center">
-              <div className="text-3xl font-bold text-purple-600">{approvedSupervisors}</div>
-              <div className="text-sm text-muted-foreground">Approved Supervisors</div>
+              <div className="text-3xl font-bold text-purple-600">{activeSupervisors}</div>
+              <div className="text-sm text-muted-foreground">Active Supervisors</div>
               <div className="text-xs text-muted-foreground mt-1">
-                {safeSupervisors.length > 0 ? Math.round((approvedSupervisors / safeSupervisors.length) * 100) : 0}% of total
+                {safeSupervisors.length > 0 ? Math.round((activeSupervisors / safeSupervisors.length) * 100) : 0}% of total
               </div>
             </div>
             <div className="text-center">

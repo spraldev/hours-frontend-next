@@ -46,7 +46,6 @@ export function BulkRejectDialog({
               disabled={isProcessing}
             />
           </div>
-          <p className="text-sm text-muted-foreground">This reason will be sent to the students for all selected entries.</p>
         </div>
         <DialogFooter>
           <Button variant="outline" onClick={() => onOpenChange(false)} disabled={isProcessing}>

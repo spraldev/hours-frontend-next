@@ -17,6 +17,8 @@ export function useAdminState() {
     adminData.hours,
     filterState.searchTerm,
     filterState.statusFilter,
+    filterState.supervisorSearchTerm,
+    filterState.supervisorStatusFilter,
     filterState.hoursSearchTerm,
     filterState.hoursStatusFilter
   )
@@ -25,6 +27,23 @@ export function useAdminState() {
       filterState.setActiveTab('overview')
     }
   }, [filterState.activeTab, user?.role, filterState.setActiveTab])
+  
+  useEffect(() => {
+    const checkGraduatedStudents = async () => {
+      if (user?.role === 'superadmin') {
+        try {
+          const students = await adminData.getGraduatedStudents()
+          dialogState.setHasGraduatedStudents(students && students.length > 0)
+        } catch (err) {
+          dialogState.setHasGraduatedStudents(false)
+        }
+      } else {
+        dialogState.setHasGraduatedStudents(false)
+      }
+    }
+    checkGraduatedStudents()
+  }, [user?.role, adminData.students])
+  
   return {
     user,
     ...adminData,

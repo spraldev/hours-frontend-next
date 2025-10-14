@@ -11,6 +11,7 @@ interface SupervisorsTabProps {
   statusFilter: string
   onStatusChange: (value: string) => void
   onEditSupervisor: (supervisor: any) => void
+  onViewHours?: (supervisor: any) => void
   isProcessing: boolean
 }
 
@@ -21,6 +22,7 @@ export function SupervisorsTab({
   statusFilter,
   onStatusChange,
   onEditSupervisor,
+  onViewHours,
   isProcessing,
 }: SupervisorsTabProps) {
   return (
@@ -41,7 +43,7 @@ export function SupervisorsTab({
           onStatusChange={onStatusChange}
           searchPlaceholder="Search supervisors..."
         />
-        <SupervisorsTable supervisors={supervisors} onEditSupervisor={onEditSupervisor} isProcessing={isProcessing} />
+        <SupervisorsTable supervisors={supervisors} onEditSupervisor={onEditSupervisor} onViewHours={onViewHours} isProcessing={isProcessing} />
       </CardContent>
     </Card>
   )

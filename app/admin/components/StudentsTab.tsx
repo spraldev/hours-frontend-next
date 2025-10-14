@@ -9,10 +9,11 @@ interface StudentsTabProps {
   searchTerm: string
   onSearchChange: (value: string) => void
   onEditStudent: (student: any) => void
+  onViewHours?: (student: any) => void
   isProcessing: boolean
 }
 
-export function StudentsTab({ students, searchTerm, onSearchChange, onEditStudent, isProcessing }: StudentsTabProps) {
+export function StudentsTab({ students, searchTerm, onSearchChange, onEditStudent, onViewHours, isProcessing }: StudentsTabProps) {
   return (
     <Card>
       <CardHeader>
@@ -32,7 +33,7 @@ export function StudentsTab({ students, searchTerm, onSearchChange, onEditStuden
           searchPlaceholder="Search students..."
           showStatusFilter={false}
         />
-        <StudentsTable students={students} onEditStudent={onEditStudent} isProcessing={isProcessing} />
+        <StudentsTable students={students} onEditStudent={onEditStudent} onViewHours={onViewHours} isProcessing={isProcessing} />
       </CardContent>
     </Card>
   )

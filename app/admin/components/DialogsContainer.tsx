@@ -11,6 +11,7 @@ import {
   CreateAdminDialog,
   EditAdminDialog,
   DeleteGraduatedStudentsDialog,
+  UserHoursDialog,
 } from './index'
 
 interface DialogsContainerProps {
@@ -19,9 +20,10 @@ interface DialogsContainerProps {
   hoursHandlers: any
   orgHandlers: any
   adminHandlers: any
+  userHoursHandlers?: any
 }
 
-export function DialogsContainer({ state, userHandlers, hoursHandlers, orgHandlers, adminHandlers }: DialogsContainerProps) {
+export function DialogsContainer({ state, userHandlers, hoursHandlers, orgHandlers, adminHandlers, userHoursHandlers }: DialogsContainerProps) {
   return (
     <>
       <EditUserDialog
@@ -73,11 +75,11 @@ export function DialogsContainer({ state, userHandlers, hoursHandlers, orgHandle
         open={!!state.editingHour}
         onOpenChange={(open) => !open && state.setEditingHour(null)}
         hour={state.editingHour}
-        status={state.editHourStatus}
+        newStatus={state.editHourStatus}
         onStatusChange={state.setEditHourStatus}
         rejectionReason={state.editRejectionReason}
-        onRejectionReasonChange={state.setEditRejectionReason}
-        onSave={hoursHandlers.handleSaveHourEdit}
+        onReasonChange={state.setEditRejectionReason}
+        onSubmit={hoursHandlers.handleSaveHourEdit}
         isProcessing={state.isProcessing}
       />
       <DeleteHourDialog
@@ -117,6 +119,27 @@ export function DialogsContainer({ state, userHandlers, hoursHandlers, orgHandle
         onConfirm={adminHandlers.handleDeleteGraduatedStudents}
         isProcessing={state.isProcessing}
       />
+      {userHoursHandlers && (
+        <UserHoursDialog
+          open={state.isUserHoursDialogOpen}
+          onOpenChange={userHoursHandlers.handleCloseUserHours}
+          user={state.selectedUser}
+          userStats={userHoursHandlers.userStats}
+          filteredHours={userHoursHandlers.filteredUserHours}
+          searchTerm={state.userHoursSearchTerm}
+          onSearchChange={userHoursHandlers.handleUserHoursSearch}
+          statusFilter={state.userHoursStatusFilter}
+          onStatusChange={userHoursHandlers.handleUserHoursStatusFilter}
+          selectedHours={state.selectedUserHours}
+          onSelectHour={userHoursHandlers.handleSelectUserHour}
+          onSelectAll={(checked) => userHoursHandlers.handleSelectAllUserHours(checked, userHoursHandlers.filteredUserHours)}
+          onApproveSelected={userHoursHandlers.handleApproveUserHours}
+          onRejectSelected={userHoursHandlers.handleRejectUserHours}
+          onEditHour={userHoursHandlers.handleEditUserHour}
+          onDeleteHour={userHoursHandlers.handleDeleteUserHour}
+          isProcessing={state.isProcessing}
+        />
+      )}
     </>
   )
 }

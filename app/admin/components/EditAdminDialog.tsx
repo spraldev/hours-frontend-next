@@ -11,13 +11,18 @@ interface EditAdminDialogProps {
   open: boolean
   onOpenChange: (open: boolean) => void
   admin: any | null
-  onUpdateField: (field: string, value: any) => void
+  onAdminChange: (admin: any) => void
   onSave: () => void
   isProcessing: boolean
 }
 
-export function EditAdminDialog({ open, onOpenChange, admin, onUpdateField, onSave, isProcessing }: EditAdminDialogProps) {
+export function EditAdminDialog({ open, onOpenChange, admin, onAdminChange, onSave, isProcessing }: EditAdminDialogProps) {
   if (!admin) return null
+
+  // Helper function to update a field
+  const onUpdateField = (field: string, value: any) => {
+    onAdminChange({ ...admin, [field]: value })
+  }
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>

@@ -18,6 +18,8 @@ interface OverviewTabProps {
   onApproveSupervisor: (id: string) => void
   onRejectSupervisor: (id: string) => void
   onOpenDeleteGraduatedDialog: () => void
+  userRole?: string
+  hasGraduatedStudents?: boolean
 }
 
 export function OverviewTab({
@@ -31,11 +33,15 @@ export function OverviewTab({
   onApproveSupervisor,
   onRejectSupervisor,
   onOpenDeleteGraduatedDialog,
+  userRole,
+  hasGraduatedStudents,
 }: OverviewTabProps) {
   return (
     <div className="space-y-6">
       <AdminStatsCards overview={overview} students={students} supervisors={supervisors} hours={hours} organizations={organizations} />
-      <DeleteGraduatedButton onOpenDialog={onOpenDeleteGraduatedDialog} isLoading={isProcessing} />
+      {userRole === 'superadmin' && hasGraduatedStudents && (
+        <DeleteGraduatedButton onOpenDialog={onOpenDeleteGraduatedDialog} isLoading={isProcessing} />
+      )}
       <PendingSupervisorApprovals
         pendingSupervisors={pendingSupervisors}
         onApprove={onApproveSupervisor}

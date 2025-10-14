@@ -10,12 +10,15 @@ interface ProofTypeFieldProps {
 }
 
 export function ProofTypeField({ form, disabled }: ProofTypeFieldProps) {
+  const { error, isTouched, invalid } = form.getFieldState('proofType', form.formState)
+  const showError = (invalid || !!error) && (isTouched || form.formState.isSubmitted)
+
   return (
     <div className="space-y-2">
       <Label htmlFor="proofType">Proof Type</Label>
       <Select
         value={form.watch('proofType')}
-        onValueChange={(value) => form.setValue('proofType', value as any)}
+        onValueChange={(value) => form.setValue('proofType', value as any, { shouldValidate: true })}
         disabled={disabled}
       >
         <SelectTrigger className="bg-muted/50">
@@ -28,6 +31,11 @@ export function ProofTypeField({ form, disabled }: ProofTypeFieldProps) {
           <SelectItem value="other">Other</SelectItem>
         </SelectContent>
       </Select>
+      {showError && (
+        <p className="text-xs text-destructive">
+          {String(error?.message || 'Proof type is required')}
+        </p>
+      )}
     </div>
   )
 }

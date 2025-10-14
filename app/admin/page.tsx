@@ -7,6 +7,7 @@ import { useAdminHoursHandlers } from '@/hooks/admin/useAdminHoursHandlers'
 import { useAdminOrgHandlers } from '@/hooks/admin/useAdminOrgHandlers'
 import { useAdminSupervHandlers } from '@/hooks/admin/useAdminSupervHandlers'
 import { useAdminAdminHandlers } from '@/hooks/admin/useAdminAdminHandlers'
+import { useAdminUserHoursHandlers } from '@/hooks/admin/useAdminUserHoursHandlers'
 import { AdminHeader, TabsContainer, DialogsContainer } from './components'
 export default function AdminDashboard() {
   const state = useAdminState()
@@ -15,6 +16,7 @@ export default function AdminDashboard() {
   const orgHandlers = useAdminOrgHandlers(state)
   const supervHandlers = useAdminSupervHandlers(state)
   const adminHandlers = useAdminAdminHandlers(state)
+  const userHoursHandlers = useAdminUserHoursHandlers(state)
   if (state.loading) return (
     <AppShell userRole="admin">
       <div className="container mx-auto px-4 py-6 max-w-7xl">
@@ -40,6 +42,7 @@ export default function AdminDashboard() {
           orgHandlers={orgHandlers}
           supervHandlers={supervHandlers}
           adminHandlers={adminHandlers}
+          userHoursHandlers={userHoursHandlers}
         />
         <DialogsContainer
           state={state}
@@ -47,6 +50,7 @@ export default function AdminDashboard() {
           hoursHandlers={hoursHandlers}
           orgHandlers={orgHandlers}
           adminHandlers={adminHandlers}
+          userHoursHandlers={userHoursHandlers}
         />
       </div>
     </AppShell>

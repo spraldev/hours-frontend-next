@@ -36,7 +36,7 @@ export function BulkRejectDialog({
         <DialogHeader>
           <DialogTitle>Reject Selected Entries</DialogTitle>
           <DialogDescription>
-            Please provide a reason for rejecting these {selectedCount} entries. Students will receive this feedback.
+            Please provide a reason for rejecting these {selectedCount} entries.
           </DialogDescription>
         </DialogHeader>
         <div className="space-y-4">

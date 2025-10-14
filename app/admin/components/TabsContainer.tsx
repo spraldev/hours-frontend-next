@@ -10,9 +10,10 @@ interface TabsContainerProps {
   orgHandlers: any
   supervHandlers: any
   adminHandlers: any
+  userHoursHandlers?: any
 }
 
-export function TabsContainer({ state, userHandlers, hoursHandlers, orgHandlers, supervHandlers, adminHandlers }: TabsContainerProps) {
+export function TabsContainer({ state, userHandlers, hoursHandlers, orgHandlers, supervHandlers, adminHandlers, userHoursHandlers }: TabsContainerProps) {
   return (
     <Tabs value={state.activeTab} onValueChange={state.setActiveTab} className="w-full">
       <TabsList className="mb-6">
@@ -36,6 +37,8 @@ export function TabsContainer({ state, userHandlers, hoursHandlers, orgHandlers,
           onApproveSupervisor={supervHandlers.handleApproveSupervisor}
           onRejectSupervisor={supervHandlers.handleRejectSupervisor}
           onOpenDeleteGraduatedDialog={adminHandlers.handleOpenDeleteGraduatedDialog}
+          userRole={state.user?.role}
+          hasGraduatedStudents={state.hasGraduatedStudents}
         />
       </TabsContent>
       <TabsContent value="students">
@@ -44,17 +47,19 @@ export function TabsContainer({ state, userHandlers, hoursHandlers, orgHandlers,
           searchTerm={state.searchTerm}
           onSearchChange={state.setSearchTerm}
           onEditStudent={(student) => userHandlers.handleEditUser(student, 'student')}
+          onViewHours={userHoursHandlers?.handleOpenUserHours ? (student) => userHoursHandlers.handleOpenUserHours(student, 'student') : undefined}
           isProcessing={state.isProcessing}
         />
       </TabsContent>
       <TabsContent value="supervisors">
         <SupervisorsTab
           supervisors={state.filteredSupervisors}
-          searchTerm={state.searchTerm}
-          onSearchChange={state.setSearchTerm}
-          statusFilter={state.statusFilter}
-          onStatusChange={state.setStatusFilter}
+          searchTerm={state.supervisorSearchTerm}
+          onSearchChange={state.setSupervisorSearchTerm}
+          statusFilter={state.supervisorStatusFilter}
+          onStatusChange={state.setSupervisorStatusFilter}
           onEditSupervisor={(supervisor) => userHandlers.handleEditUser(supervisor, 'supervisor')}
+          onViewHours={userHoursHandlers?.handleOpenUserHours ? (supervisor) => userHoursHandlers.handleOpenUserHours(supervisor, 'supervisor') : undefined}
           isProcessing={state.isProcessing}
         />
       </TabsContent>

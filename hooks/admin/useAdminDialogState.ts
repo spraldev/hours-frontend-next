@@ -27,6 +27,13 @@ export function useAdminDialogState() {
   const [isDeleteGraduatedDialogOpen, setIsDeleteGraduatedDialogOpen] = useState(false)
   const [graduatedStudents, setGraduatedStudents] = useState<any[]>([])
   const [isLoadingGraduatedStudents, setIsLoadingGraduatedStudents] = useState(false)
+  const [hasGraduatedStudents, setHasGraduatedStudents] = useState(false)
+  const [selectedUser, setSelectedUser] = useState<any>(null)
+  const [isUserHoursDialogOpen, setIsUserHoursDialogOpen] = useState(false)
+  const [userHoursSearchTerm, setUserHoursSearchTerm] = useState('')
+  const [userHoursStatusFilter, setUserHoursStatusFilter] = useState('all')
+  const [selectedUserHours, setSelectedUserHours] = useState<string[]>([])
+  
   return {
     editingUser, setEditingUser, isEditDialogOpen, setIsEditDialogOpen,
     isResetPasswordDialogOpen, setIsResetPasswordDialogOpen, newPassword, setNewPassword,
@@ -42,5 +49,11 @@ export function useAdminDialogState() {
     isDeleteGraduatedDialogOpen, setIsDeleteGraduatedDialogOpen,
     graduatedStudents, setGraduatedStudents,
     isLoadingGraduatedStudents, setIsLoadingGraduatedStudents,
+    hasGraduatedStudents, setHasGraduatedStudents,
+    selectedUser, setSelectedUser,
+    isUserHoursDialogOpen, setIsUserHoursDialogOpen,
+    userHoursSearchTerm, setUserHoursSearchTerm,
+    userHoursStatusFilter, setUserHoursStatusFilter,
+    selectedUserHours, setSelectedUserHours,
   }
 }

@@ -4,7 +4,9 @@ export const studentUpdateSchema = z.object({
   firstName: z.string().min(1).optional(),
   lastName: z.string().min(1).optional(),
   email: z.string().email().optional(),
-  graduationYear: z.number().int().min(2024).max(2030).optional(),
+  graduatingYear: z.number().int().min(2024).max(2030).optional(),
+  grade: z.number().int().min(9).max(12).optional(),
+  isActive: z.boolean().optional(),
   verified: z.boolean().optional(),
 })
 
@@ -13,7 +15,7 @@ export const supervisorUpdateSchema = z.object({
   lastName: z.string().min(1).optional(),
   email: z.string().email().optional(),
   organizationId: z.string().optional(),
-  approved: z.boolean().optional(),
+  isActive: z.boolean().optional(),
 })
 
 export const adminCreateSchema = z.object({

@@ -16,7 +16,7 @@ export function AdminStatsCards({ overview, students, supervisors, hours, organi
   const totalStudents = overview?.totalStudents || students.length
   const totalHours = overview?.totalHours || hours.reduce((sum, h) => (h.status === 'approved' ? sum + h.hours : sum), 0)
   const pendingHours = overview?.pendingHours || hours.filter((h) => h.status === 'pending').length
-  const activeSupervisors = overview?.totalSupervisors || supervisors.filter((s) => s.isApproved).length
+  const activeSupervisors = overview?.totalSupervisors || supervisors.filter((s) => s.isActive).length
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">

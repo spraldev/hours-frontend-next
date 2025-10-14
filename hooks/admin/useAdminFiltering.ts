@@ -7,6 +7,8 @@ export function useAdminFiltering(
   hours: any[],
   searchTerm: string,
   statusFilter: string,
+  supervisorSearchTerm: string,
+  supervisorStatusFilter: string,
   hoursSearchTerm: string,
   hoursStatusFilter: string
 ) {
@@ -16,15 +18,14 @@ export function useAdminFiltering(
   ), [students, searchTerm])
   const filteredSupervisors = useMemo(() => supervisors.filter((u) => {
     const matchesSearch =
-      `${u.firstName} ${u.lastName}`.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      u.email.toLowerCase().includes(searchTerm.toLowerCase())
+      `${u.firstName} ${u.lastName}`.toLowerCase().includes(supervisorSearchTerm.toLowerCase()) ||
+      u.email.toLowerCase().includes(supervisorSearchTerm.toLowerCase())
     const matchesStatus =
-      statusFilter === 'all' ||
-      (statusFilter === 'approved' && u.isApproved) ||
-      (statusFilter === 'pending' && !u.isApproved && u.isActive) ||
-      (statusFilter === 'rejected' && !u.isApproved && !u.isActive)
+      supervisorStatusFilter === 'all' ||
+      (supervisorStatusFilter === 'approved' && u.isActive) ||
+      (supervisorStatusFilter === 'pending' && !u.isActive)
     return matchesSearch && matchesStatus
-  }), [supervisors, searchTerm, statusFilter])
+  }), [supervisors, supervisorSearchTerm, supervisorStatusFilter])
   const filteredHours = useMemo(() => hours.filter((entry) => {
     const student = typeof entry.student === 'string' ? null : entry.student
     const studentName = student ? `${student.firstName} ${student.lastName}` : ''

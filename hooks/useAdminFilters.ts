@@ -28,7 +28,7 @@ export function useAdminFilters() {
           user.lastName.toLowerCase().includes(searchTerm.toLowerCase()) ||
           user.email.toLowerCase().includes(searchTerm.toLowerCase())
         const matchesStatus =
-          statusFilter === 'all' || (statusFilter === 'approved' ? user.isApproved : !user.isApproved)
+          statusFilter === 'all' || (statusFilter === 'approved' ? user.isActive : !user.isActive)
         return matchesSearch && matchesStatus
       }),
     [searchTerm, statusFilter]

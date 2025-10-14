@@ -4,24 +4,25 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@
 import { Avatar, AvatarFallback } from '@/components/ui/avatar'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
-import { Edit } from 'lucide-react'
+import { Edit, Eye } from 'lucide-react'
 
 interface SupervisorsTableProps {
   supervisors: any[]
   onEditSupervisor: (supervisor: any) => void
+  onViewHours?: (supervisor: any) => void
   isProcessing: boolean
 }
 
-export function SupervisorsTable({ supervisors, onEditSupervisor, isProcessing }: SupervisorsTableProps) {
+export function SupervisorsTable({ supervisors, onEditSupervisor, onViewHours, isProcessing }: SupervisorsTableProps) {
   return (
     <div className="overflow-x-auto">
       <Table>
         <TableHeader>
           <TableRow>
             <TableHead>Supervisor</TableHead>
-            <TableHead>Organization</TableHead>
+            <TableHead>Organizations</TableHead>
             <TableHead>Status</TableHead>
-            <TableHead className="w-[50px]"></TableHead>
+            <TableHead className="w-[100px]"></TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
@@ -51,21 +52,38 @@ export function SupervisorsTable({ supervisors, onEditSupervisor, isProcessing }
                   </div>
                 </TableCell>
                 <TableCell>
-                  <p className="text-sm">
-                    {typeof supervisor.organization === 'string'
-                      ? supervisor.organization
-                      : supervisor.organization?.name || 'Unknown'}
-                  </p>
+                  <div className="flex flex-wrap gap-1">
+                    {supervisor.organizationNames && supervisor.organizationNames.length > 0 ? (
+                      supervisor.organizationNames.map((orgName: string, index: number) => (
+                        <Badge key={index} variant="outline" className="text-xs">
+                          {orgName}
+                        </Badge>
+                      ))
+                    ) : (
+                      <span className="text-sm text-muted-foreground">
+                        {typeof supervisor.organization === 'string'
+                          ? supervisor.organization
+                          : supervisor.organization?.name || 'Unknown'}
+                      </span>
+                    )}
+                  </div>
                 </TableCell>
                 <TableCell>
-                  <Badge variant={supervisor.isApproved ? 'default' : 'secondary'} className="capitalize">
-                    {supervisor.isApproved ? 'Approved' : 'Pending'}
+                  <Badge variant={supervisor.isActive ? 'default' : 'secondary'} className="capitalize">
+                    {supervisor.isActive ? 'Active' : 'Pending'}
                   </Badge>
                 </TableCell>
                 <TableCell>
-                  <Button variant="ghost" size="icon" onClick={() => onEditSupervisor(supervisor)} disabled={isProcessing}>
-                    <Edit className="h-4 w-4" />
-                  </Button>
+                  <div className="flex gap-1">
+                    {onViewHours && (
+                      <Button variant="ghost" size="icon" onClick={() => onViewHours(supervisor)} disabled={isProcessing} title="View hours">
+                        <Eye className="h-4 w-4" />
+                      </Button>
+                    )}
+                    <Button variant="ghost" size="icon" onClick={() => onEditSupervisor(supervisor)} disabled={isProcessing} title="Edit supervisor">
+                      <Edit className="h-4 w-4" />
+                    </Button>
+                  </div>
                 </TableCell>
               </TableRow>
             ))

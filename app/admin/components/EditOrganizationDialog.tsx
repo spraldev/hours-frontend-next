@@ -12,7 +12,7 @@ interface EditOrganizationDialogProps {
   open: boolean
   onOpenChange: (open: boolean) => void
   organization: any | null
-  onUpdateField: (field: string, value: any) => void
+  onOrganizationChange: (organization: any) => void
   onSave: () => void
   isProcessing: boolean
 }
@@ -21,11 +21,16 @@ export function EditOrganizationDialog({
   open,
   onOpenChange,
   organization,
-  onUpdateField,
+  onOrganizationChange,
   onSave,
   isProcessing,
 }: EditOrganizationDialogProps) {
   if (!organization) return null
+
+  // Helper function to update a field
+  const onUpdateField = (field: string, value: any) => {
+    onOrganizationChange({ ...organization, [field]: value })
+  }
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>

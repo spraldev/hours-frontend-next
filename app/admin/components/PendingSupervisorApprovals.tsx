@@ -35,7 +35,13 @@ export function PendingSupervisorApprovals({
                 </p>
                 <p className="text-sm text-muted-foreground">{supervisor.email}</p>
                 <p className="text-sm text-muted-foreground">
-                  Organization: {typeof supervisor.organization === 'string' ? supervisor.organization : supervisor.organization?.name || 'Unknown'}
+                  Organization{supervisor.organizationNames && supervisor.organizationNames.length > 1 ? 's' : ''}: {
+                    supervisor.organizationNames && supervisor.organizationNames.length > 0
+                      ? supervisor.organizationNames.join(', ')
+                      : typeof supervisor.organization === 'string'
+                      ? supervisor.organization
+                      : supervisor.organization?.name || 'Unknown'
+                  }
                 </p>
               </div>
               <div className="flex space-x-2">

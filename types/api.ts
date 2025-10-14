@@ -18,8 +18,8 @@ export interface Student {
     firstName: string;
     lastName: string;
     email: string;
-    organization: string | Organization;
-    organizationName: string;
+    organizations: (string | Organization)[];
+    organizationNames: string[];
     proofOfExistence: string;
     proofType: 'email' | 'website' | 'document' | 'other';
     isActive: boolean;
@@ -105,6 +105,7 @@ export interface Student {
     role: 'student' | 'supervisor' | 'admin' | 'superadmin';
     firstName: string;
     lastName: string;
+    organizationIds?: string[];
   }
   
   export interface AuthResponse {
