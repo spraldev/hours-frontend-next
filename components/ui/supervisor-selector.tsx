@@ -31,43 +31,87 @@ export function SupervisorSelector({
   const [isOpen, setIsOpen] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
 
-  // Load supervisors on mount
+  // Load popular supervisors on mount
   useEffect(() => {
-    const loadSupervisors = async () => {
+    const loadPopularSupervisors = async () => {
       if (allSupervisors.length > 0) return
       
       try {
         setIsLoading(true)
-        const response = await apiClient.get("/student/supervisors")
-        console.log("Supervisors response:", response)
-        if (response.success && response.data) {
-          setAllSupervisors(response.data)
+        const response = await apiClient.get("/supervisor/popular?limit=50")
+        console.log("Supervisor API response:", response)
+        if (response.success && response.data.supervisors) {
+          console.log("Setting supervisors:", response.data.supervisors)
+          setAllSupervisors(response.data.supervisors)
         }
       } catch (err) {
-        console.error("Failed to load supervisors:", err)
+        console.error("Failed to load popular supervisors:", err)
+        // Fallback to empty list
         setAllSupervisors([])
       } finally {
         setIsLoading(false)
       }
     }
     
-    loadSupervisors()
+    loadPopularSupervisors()
   }, [allSupervisors.length])
 
-  // Filter supervisors for display
-  const filteredSupervisors = useMemo(() => {
-    const searchTerm = supervisorSearch.toLowerCase().trim()
+  // Search supervisors via API with debouncing
+  useEffect(() => {
+    const searchTerm = supervisorSearch.trim()
     
     if (!searchTerm) {
-      return allSupervisors
+      // When search is cleared, reload popular supervisors
+      const reloadPopular = async () => {
+        try {
+          setIsLoading(true)
+          const response = await apiClient.get("/supervisor/popular?limit=50")
+          if (response.success && response.data.supervisors) {
+            setAllSupervisors(response.data.supervisors)
+          }
+        } catch (err) {
+          console.error("Failed to reload popular supervisors:", err)
+        } finally {
+          setIsLoading(false)
+        }
+      }
+      reloadPopular()
+      return
     }
 
-    return allSupervisors.filter((supervisor) => {
-      const fullName = `${supervisor.firstName} ${supervisor.lastName}`.toLowerCase()
-      const email = supervisor.email.toLowerCase()
-      return fullName.includes(searchTerm) || email.includes(searchTerm)
+    setIsLoading(true)
+    
+    const searchSupervisors = async () => {
+      try {
+        const response = await apiClient.get(`/supervisor/search?q=${encodeURIComponent(searchTerm)}&limit=50`)
+        if (response.success && response.data.supervisors) {
+          setAllSupervisors(response.data.supervisors)
+        }
+      } catch (err) {
+        console.error("Failed to search supervisors:", err)
+      } finally {
+        setIsLoading(false)
+      }
+    }
+
+    // Debounce search by 300ms
+    const timeoutId = setTimeout(searchSupervisors, 300)
+    return () => clearTimeout(timeoutId)
+  }, [supervisorSearch])
+
+  // Filter and sort supervisors for display
+  const filteredSupervisors = useMemo(() => {
+    return allSupervisors.sort((a, b) => {
+      // Prioritize approved supervisors
+      if (a.isApproved && !b.isApproved) return -1
+      if (!a.isApproved && b.isApproved) return 1
+      
+      // Then sort alphabetically by last name
+      const nameA = `${a.lastName} ${a.firstName}`
+      const nameB = `${b.lastName} ${b.firstName}`
+      return nameA.localeCompare(nameB)
     })
-  }, [allSupervisors, supervisorSearch])
+  }, [allSupervisors])
 
   return (
     <Popover open={isOpen} onOpenChange={setIsOpen}>
@@ -108,50 +152,109 @@ export function SupervisorSelector({
               <div className="p-4 text-center text-sm text-muted-foreground">
                 <div className="flex flex-col items-center gap-2">
                   <div className="h-5 w-5 border-2 border-[#0084ff] border-t-transparent rounded-full animate-spin"></div>
-                  <span>Loading supervisors...</span>
+                  <span>{supervisorSearch ? 'Searching...' : 'Loading supervisors...'}</span>
                 </div>
               </div>
-            ) : filteredSupervisors.length === 0 ? (
-              <div className="p-4 text-center text-sm text-muted-foreground">
-                {supervisorSearch ? 
-                  `No supervisors found for "${supervisorSearch}"` : 
-                  "No supervisors available"
-                }
-              </div>
             ) : (
-              <div className="p-1">
-                {filteredSupervisors.map((supervisor) => (
-                  <button
-                    key={supervisor._id}
-                    onClick={() => {
-                      onChange(supervisor)
-                      setIsOpen(false)
-                      setSupervisorSearch("")
-                    }}
-                    className={cn(
-                      "w-full flex items-center gap-2 px-3 py-2 text-sm rounded-md hover:bg-muted transition-colors text-left",
-                      value?._id === supervisor._id && "bg-muted"
+              <>
+                {filteredSupervisors.length === 0 ? (
+                  <div className="p-4 text-center text-sm text-muted-foreground">
+                    {supervisorSearch ? 
+                      `No supervisors found for "${supervisorSearch}"` : 
+                      "No supervisors available"
+                    }
+                  </div>
+                ) : (
+                  <div className="p-1">
+                    {/* Approved Supervisors */}
+                    {filteredSupervisors.some(sup => sup.isApproved) && (
+                      <>
+                        <div className="px-3 py-1.5 text-xs font-medium text-muted-foreground">
+                          Approved Supervisors
+                        </div>
+                        {filteredSupervisors
+                          .filter(sup => sup.isApproved)
+                          .map((supervisor) => (
+                            <button
+                              key={supervisor.id}
+                              onClick={() => {
+                                onChange(supervisor)
+                                setIsOpen(false)
+                                setSupervisorSearch("")
+                              }}
+                              className={cn(
+                                "w-full flex items-center gap-2 px-3 py-2 text-sm rounded-md hover:bg-muted transition-colors text-left",
+                                value?.id === supervisor.id && "bg-muted"
+                              )}
+                            >
+                              <Check 
+                                className={cn(
+                                  "h-4 w-4 shrink-0",
+                                  value?.id === supervisor.id 
+                                    ? "opacity-100" 
+                                    : "opacity-0"
+                                )}
+                              />
+                              <div className="flex-1 min-w-0">
+                                <div className="truncate font-medium">
+                                  {supervisor.firstName} {supervisor.lastName}
+                                </div>
+                                <div className="truncate text-xs text-muted-foreground">
+                                  {supervisor.email}
+                                </div>
+                              </div>
+                              <span className="text-xs text-green-600">✓</span>
+                            </button>
+                          ))}
+                      </>
                     )}
-                  >
-                    <Check 
-                      className={cn(
-                        "h-4 w-4 shrink-0",
-                        value?._id === supervisor._id 
-                          ? "opacity-100" 
-                          : "opacity-0"
-                      )}
-                    />
-                    <div className="flex-1 min-w-0">
-                      <div className="truncate font-medium">
-                        {supervisor.firstName} {supervisor.lastName}
-                      </div>
-                      <div className="truncate text-xs text-muted-foreground">
-                        {supervisor.email}
-                      </div>
-                    </div>
-                  </button>
-                ))}
-              </div>
+                    
+                    {/* Other Supervisors */}
+                    {filteredSupervisors.some(sup => !sup.isApproved) && (
+                      <>
+                        {filteredSupervisors.some(sup => sup.isApproved) && (
+                          <div className="px-3 py-1.5 text-xs font-medium text-muted-foreground mt-2">
+                            Other Supervisors
+                          </div>
+                        )}
+                        {filteredSupervisors
+                          .filter(sup => !sup.isApproved)
+                          .map((supervisor) => (
+                            <button
+                              key={supervisor.id}
+                              onClick={() => {
+                                onChange(supervisor)
+                                setIsOpen(false)
+                                setSupervisorSearch("")
+                              }}
+                              className={cn(
+                                "w-full flex items-center gap-2 px-3 py-2 text-sm rounded-md hover:bg-muted transition-colors text-left",
+                                value?.id === supervisor.id && "bg-muted"
+                              )}
+                            >
+                              <Check 
+                                className={cn(
+                                  "h-4 w-4 shrink-0",
+                                  value?.id === supervisor.id 
+                                    ? "opacity-100" 
+                                    : "opacity-0"
+                                )}
+                              />
+                              <div className="flex-1 min-w-0">
+                                <div className="truncate font-medium">
+                                  {supervisor.firstName} {supervisor.lastName}
+                                </div>
+                                <div className="truncate text-xs text-muted-foreground">
+                                  {supervisor.email}
+                                </div>
+                              </div>
+                            </button>
+                          ))}
+                      </>
+                    )}
+                  </div>
+                )}
+              </>
             )}
           </div>
         </div>

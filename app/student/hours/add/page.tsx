@@ -36,6 +36,7 @@ export default function AddHoursPage() {
   const [error, setError] = useState("")
 
   const handleSupervisorChange = async (supervisor: Supervisor | null) => {
+    console.log("handleSupervisorChange called with:", supervisor)
     setSelectedSupervisor(supervisor)
     setSelectedOrganization(null)
     setAvailableOrganizations([])
@@ -44,10 +45,11 @@ export default function AddHoursPage() {
       return
     }
     
+    console.log("Supervisor id:", supervisor.id)
     setLoadingOrganizations(true)
     setError("")
     try {
-      const response = await apiClient.get(`/student/supervisor-organizations?supervisorId=${supervisor._id}`)
+      const response = await apiClient.get(`/student/supervisor-organizations?supervisorId=${supervisor.id}`)
       console.log("Supervisor organizations response:", response)
       
       if (response.success && response.data) {

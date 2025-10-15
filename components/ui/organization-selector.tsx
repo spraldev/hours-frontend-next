@@ -24,6 +24,7 @@ interface OrganizationSelectorProps {
   required?: boolean
   className?: string
   allowAddNew?: boolean // Allow adding new organizations (for staff only)
+  availableOrganizations?: Organization[] // Pre-filtered organizations (e.g., for specific supervisor)
 }
 
 export function OrganizationSelector({
@@ -34,6 +35,7 @@ export function OrganizationSelector({
   required = false,
   className,
   allowAddNew = true,
+  availableOrganizations,
 }: OrganizationSelectorProps) {
   const [allOrganizations, setAllOrganizations] = useState<Organization[]>([])
   const [organizationSearch, setOrganizationSearch] = useState("")
@@ -42,8 +44,14 @@ export function OrganizationSelector({
   const [showAddNewForm, setShowAddNewForm] = useState(false)
   const [newOrgName, setNewOrgName] = useState("")
 
-  // Load popular organizations on mount
+  // Load popular organizations on mount (only if no availableOrganizations provided)
   useEffect(() => {
+    // If availableOrganizations is provided, use it instead of API calls
+    if (availableOrganizations) {
+      setAllOrganizations(availableOrganizations)
+      return
+    }
+
     const loadPopularOrganizations = async () => {
       if (allOrganizations.length > 0) return
       
@@ -66,10 +74,15 @@ export function OrganizationSelector({
     }
     
     loadPopularOrganizations()
-  }, [allOrganizations.length])
+  }, [allOrganizations.length, availableOrganizations])
 
-  // Search organizations via API with debouncing
+  // Search organizations via API with debouncing (only if no availableOrganizations provided)
   useEffect(() => {
+    // If availableOrganizations is provided, skip API search and use client-side filtering
+    if (availableOrganizations) {
+      return
+    }
+
     const searchTerm = organizationSearch.trim()
     
     if (!searchTerm) {
@@ -109,11 +122,23 @@ export function OrganizationSelector({
     // Debounce search by 300ms
     const timeoutId = setTimeout(searchOrganizations, 300)
     return () => clearTimeout(timeoutId)
-  }, [organizationSearch])
+  }, [organizationSearch, availableOrganizations])
 
   // Filter and sort organizations for display
   const filteredOrganizations = useMemo(() => {
-    return allOrganizations.sort((a, b) => {
+    let organizations = allOrganizations
+
+    // If availableOrganizations is provided, do client-side filtering
+    if (availableOrganizations) {
+      const searchTerm = organizationSearch.toLowerCase().trim()
+      if (searchTerm) {
+        organizations = allOrganizations.filter(org => 
+          org.name.toLowerCase().includes(searchTerm)
+        )
+      }
+    }
+
+    return organizations.sort((a, b) => {
       // Prioritize verified organizations
       if (a.verified && !b.verified) return -1
       if (!a.verified && b.verified) return 1
@@ -121,7 +146,7 @@ export function OrganizationSelector({
       // Then sort alphabetically
       return a.name.localeCompare(b.name)
     })
-  }, [allOrganizations])
+  }, [allOrganizations, organizationSearch, availableOrganizations])
 
   const handleAddOrganization = () => {
     if (newOrgName.trim()) {
@@ -305,7 +330,7 @@ export function OrganizationSelector({
           </div>
           
 
-          {allowAddNew && !showAddNewForm && (
+          {allowAddNew && !showAddNewForm && !availableOrganizations && (
             <div className="p-2 border-t">
               <Button
                 variant="ghost"

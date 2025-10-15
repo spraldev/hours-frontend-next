@@ -9,13 +9,11 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Badge } from "@/components/ui/badge"
-import { Loader2, Save, Shield, Building2, Plus, X } from "lucide-react"
+import { Loader2, Save, Shield, Building2 } from "lucide-react"
 import { useAuth } from "@/contexts/AuthContext"
 import { useSupervisorDashboard } from "@/hooks/useSupervisorDashboard"
 import toast from "react-hot-toast"
 import { apiClient } from "@/lib/api-client"
-import { OrganizationSelector } from "@/components/ui/organization-selector"
-import type { Organization } from "@/types/api"
 
 export default function SupervisorSettingsPage() {
   const { user, updateUser } = useAuth()
@@ -30,7 +28,6 @@ export default function SupervisorSettingsPage() {
   const [lastName, setLastName] = useState("")
   const [email, setEmail] = useState("")
   const [selectedOrganizations, setSelectedOrganizations] = useState<Array<{id: string, name: string}>>([])
-  const [newOrganization, setNewOrganization] = useState<{id: string, name: string} | null>(null)
 
   // Initialize form values when data loads
   useEffect(() => {
@@ -80,8 +77,7 @@ export default function SupervisorSettingsPage() {
       const updateData: any = {
         firstName,
         lastName,
-        email,
-        organizationIds: selectedOrganizations.map(org => org.id)
+        email
       }
       
       const response = await apiClient.put('/supervisor/profile', updateData)
@@ -99,7 +95,6 @@ export default function SupervisorSettingsPage() {
         
         toast.success("Profile has been successfully updated.")
         setIsEditing(false)
-        setNewOrganization(null)
       } else {
         throw new Error(response.message || 'Failed to update profile')
       }
@@ -111,34 +106,6 @@ export default function SupervisorSettingsPage() {
     }
   }
   
-  const handleAddOrganization = () => {
-    if (!newOrganization) {
-      toast.error("Please select an organization first")
-      return
-    }
-    
-    // Check if organization already exists
-    if (selectedOrganizations.find(org => org.id === newOrganization.id)) {
-      toast.error("This organization is already added")
-      return
-    }
-    
-    setSelectedOrganizations([...selectedOrganizations, newOrganization])
-    setNewOrganization(null)
-    toast.success(`Added ${newOrganization.name}`)
-  }
-  
-  const handleRemoveOrganization = (orgId: string) => {
-    if (selectedOrganizations.length <= 1) {
-      toast.error("You must belong to at least one organization")
-      return
-    }
-    const org = selectedOrganizations.find(o => o.id === orgId)
-    setSelectedOrganizations(selectedOrganizations.filter(org => org.id !== orgId))
-    if (org) {
-      toast.success(`Removed ${org.name}`)
-    }
-  }
 
   const handleChangePassword = async () => {
     const email = user?.email || supervisor?.email
@@ -269,71 +236,19 @@ export default function SupervisorSettingsPage() {
                 <div className="space-y-2">
                   <Label htmlFor="organizations">Organization{selectedOrganizations.length > 1 ? 's' : ''}</Label>
                   
-                  {isEditing ? (
-                    <div className="space-y-3">
-                      {/* Current Organizations */}
-                      <div className="space-y-2">
-                        {selectedOrganizations.map((org, index) => (
-                          <div key={index} className="flex items-center gap-2">
-                            <Input 
-                              value={org.name} 
-                              disabled 
-                              className="bg-muted/50 flex-1" 
-                            />
-                            <Button
-                              type="button"
-                              variant="ghost"
-                              size="icon"
-                              onClick={() => handleRemoveOrganization(org.id)}
-                              disabled={selectedOrganizations.length <= 1 || isSaving}
-                              title={selectedOrganizations.length <= 1 ? "Must have at least one organization" : "Remove organization"}
-                            >
-                              <X className="h-4 w-4 text-destructive" />
-                            </Button>
-                          </div>
-                        ))}
-                      </div>
-                      
-                      {/* Add New Organization */}
-                      <div className="space-y-2 pt-2 border-t">
-                        <Label className="text-sm">Add Organization</Label>
-                        <div className="flex gap-2">
-                          <OrganizationSelector
-                            value={newOrganization}
-                            onChange={setNewOrganization}
-                            placeholder="Select organization to add"
-                            className="flex-1"
-                            allowAddNew={false}
-                            disabled={isSaving}
-                          />
-                          <Button
-                            type="button"
-                            onClick={handleAddOrganization}
-                            disabled={!newOrganization || isSaving}
-                          >
-                            <Plus className="h-4 w-4" />
-                          </Button>
-                        </div>
-                        <p className="text-xs text-muted-foreground">
-                          Don't see your organization? Please contact your administrator to create a new organization for you.
-                        </p>
-                      </div>
-                    </div>
-                  ) : (
-                    <div className="space-y-1">
-                      {selectedOrganizations.map((org, index) => (
-                        <Input 
-                          key={index}
-                          value={org.name} 
-                          disabled 
-                          className="bg-muted/50" 
-                        />
-                      ))}
-                      <p className="text-xs text-muted-foreground pt-1">
-                        Click "Edit Profile" to manage organizations
-                      </p>
-                    </div>
-                  )}
+                  <div className="space-y-1">
+                    {selectedOrganizations.map((org, index) => (
+                      <Input 
+                        key={index}
+                        value={org.name} 
+                        disabled 
+                        className="bg-muted/50" 
+                      />
+                    ))}
+                    <p className="text-xs text-muted-foreground pt-1">
+                      To change your organizations, please contact an administrator.
+                    </p>
+                  </div>
                 </div>
 
                 <div className="flex justify-end space-x-2">
@@ -343,7 +258,6 @@ export default function SupervisorSettingsPage() {
                         variant="outline" 
                         onClick={() => {
                           setIsEditing(false)
-                          setNewOrganization(null)
                           // Reset to original values
                           if (user) {
                             setFirstName(user.firstName || "")
@@ -354,14 +268,6 @@ export default function SupervisorSettingsPage() {
                             setFirstName(supervisor.firstName || "")
                             setLastName(supervisor.lastName || "")
                             setEmail(supervisor.email || "")
-                            // Reset organizations
-                            if (supervisor.organizations && Array.isArray(supervisor.organizations)) {
-                              const orgs = supervisor.organizations.map((org: any) => ({
-                                id: typeof org === 'string' ? org : org._id,
-                                name: typeof org === 'string' ? org : org.name
-                              }))
-                              setSelectedOrganizations(orgs)
-                            }
                           }
                         }} 
                         disabled={isSaving}
@@ -371,7 +277,7 @@ export default function SupervisorSettingsPage() {
                       <Button 
                         className="bg-[#0084ff] hover:bg-[#0070e6] text-white"
                         onClick={handleSave}
-                        disabled={isSaving || selectedOrganizations.length === 0}
+                        disabled={isSaving}
                       >
                         {isSaving ? (
                           <Loader2 className="mr-2 h-4 w-4 animate-spin" />
