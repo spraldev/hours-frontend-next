@@ -84,7 +84,11 @@ export function TabsContainer({ state, userHandlers, hoursHandlers, orgHandlers,
       </TabsContent>
       <TabsContent value="organizations">
         <OrganizationsTab
-          organizations={state.organizations}
+          organizations={state.filteredOrganizations}
+          searchTerm={state.organizationsSearchTerm}
+          onSearchChange={state.setOrganizationsSearchTerm}
+          statusFilter={state.organizationsStatusFilter}
+          onStatusChange={state.setOrganizationsStatusFilter}
           onCreateOrganization={() => state.setIsCreateOrgDialogOpen(true)}
           onEditOrganization={orgHandlers.handleEditOrganization}
           onDeleteOrganization={orgHandlers.handleDeleteOrganization}

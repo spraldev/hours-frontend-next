@@ -41,7 +41,7 @@ export function SupervisorsTab({
           onSearchChange={onSearchChange}
           statusValue={statusFilter}
           onStatusChange={onStatusChange}
-          searchPlaceholder="Search supervisors..."
+          searchPlaceholder="Search by name or email..."
         />
         <SupervisorsTable supervisors={supervisors} onEditSupervisor={onEditSupervisor} onViewHours={onViewHours} isProcessing={isProcessing} />
       </CardContent>

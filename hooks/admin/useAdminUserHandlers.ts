@@ -28,13 +28,21 @@ export function useAdminUserHandlers(state: any) {
           state.setEditingUser(null)
         }
       } else {
+        // Update supervisor basic info
         const success = await state.updateSupervisor(state.editingUser._id, {
           firstName: state.editingUser.firstName,
           lastName: state.editingUser.lastName,
           email: state.editingUser.email,
           isActive: state.editingUser.isActive,
         })
+        
         if (success) {
+          // Update supervisor organizations if they have changed
+          if (state.editingUser.selectedOrganizations) {
+            const organizationIds = state.editingUser.selectedOrganizations.map((org: any) => org.id)
+            await state.updateSupervisorOrganizations(state.editingUser._id, organizationIds)
+          }
+          
           toast.success('Supervisor updated successfully')
           state.setIsEditDialogOpen(false)
           state.setEditingUser(null)
@@ -91,10 +99,16 @@ export function useAdminUserHandlers(state: any) {
     }
   }
 
+  const handleUpdateSupervisorOrganizations = (organizations: any[]) => {
+    if (!state.editingUser) return
+    state.setEditingUser({ ...state.editingUser, selectedOrganizations: organizations })
+  }
+
   return {
     handleEditUser,
     handleSaveUser,
     handleResetPassword,
     handleConfirmPasswordReset,
+    handleUpdateSupervisorOrganizations,
   }
 }

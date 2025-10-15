@@ -5,10 +5,15 @@ import { Button } from '@/components/ui/button'
 import { Avatar, AvatarFallback } from '@/components/ui/avatar'
 import { Badge } from '@/components/ui/badge'
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu'
+import { SearchAndStatusFilter } from './SearchAndStatusFilter'
 import { Building2, Plus, MoreHorizontal, Edit, Trash2 } from 'lucide-react'
 
 interface OrganizationsTabProps {
   organizations: any[]
+  searchTerm: string
+  onSearchChange: (value: string) => void
+  statusFilter: string
+  onStatusChange: (value: string) => void
   onCreateOrganization: () => void
   onEditOrganization: (org: any) => void
   onDeleteOrganization: (id: string) => void
@@ -17,6 +22,10 @@ interface OrganizationsTabProps {
 
 export function OrganizationsTab({
   organizations,
+  searchTerm,
+  onSearchChange,
+  statusFilter,
+  onStatusChange,
   onCreateOrganization,
   onEditOrganization,
   onDeleteOrganization,
@@ -37,6 +46,18 @@ export function OrganizationsTab({
         </div>
       </CardHeader>
       <CardContent>
+        <SearchAndStatusFilter
+          searchValue={searchTerm}
+          onSearchChange={onSearchChange}
+          statusValue={statusFilter}
+          onStatusChange={onStatusChange}
+          searchPlaceholder="Search by name, description, or contact email..."
+          statusOptions={[
+            { value: 'all', label: 'All Status' },
+            { value: 'active', label: 'Active' },
+            { value: 'inactive', label: 'Inactive' }
+          ]}
+        />
         <div className="space-y-4">
           {organizations.length === 0 ? (
             <div className="text-center py-8 text-muted-foreground">

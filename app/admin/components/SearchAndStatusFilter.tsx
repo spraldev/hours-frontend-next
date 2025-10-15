@@ -11,6 +11,7 @@ interface SearchAndStatusFilterProps {
   onStatusChange: (value: string) => void
   searchPlaceholder?: string
   showStatusFilter?: boolean
+  statusOptions?: Array<{value: string, label: string}>
 }
 
 export function SearchAndStatusFilter({
@@ -20,6 +21,11 @@ export function SearchAndStatusFilter({
   onStatusChange,
   searchPlaceholder = 'Search...',
   showStatusFilter = true,
+  statusOptions = [
+    { value: 'all', label: 'All Status' },
+    { value: 'approved', label: 'Active' },
+    { value: 'pending', label: 'Pending' }
+  ]
 }: SearchAndStatusFilterProps) {
   return (
     <div className="mb-4 flex items-center space-x-4">
@@ -33,9 +39,11 @@ export function SearchAndStatusFilter({
             <SelectValue placeholder="Filter by status" />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="all">All Status</SelectItem>
-            <SelectItem value="approved">Active</SelectItem>
-            <SelectItem value="pending">Pending</SelectItem>
+            {statusOptions.map((option) => (
+              <SelectItem key={option.value} value={option.value}>
+                {option.label}
+              </SelectItem>
+            ))}
           </SelectContent>
         </Select>
       )}

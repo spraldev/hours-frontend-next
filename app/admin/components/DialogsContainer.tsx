@@ -33,6 +33,7 @@ export function DialogsContainer({ state, userHandlers, hoursHandlers, orgHandle
         onUserChange={state.setEditingUser}
         onSave={userHandlers.handleSaveUser}
         onResetPassword={userHandlers.handleResetPassword}
+        onUpdateSupervisorOrganizations={userHandlers.handleUpdateSupervisorOrganizations}
         isProcessing={state.isProcessing}
       />
       <PasswordResetDialog

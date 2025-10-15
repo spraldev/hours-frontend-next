@@ -1,0 +1,46 @@
+"filename", "language", "TypeScript", "TypeScript JSX", "comment", "blank", "total"
+"/Users/spursh/Documents/code/hours-frontend-next/app/admin/components/AdminHeader.tsx", "TypeScript JSX", 0, 27, 0, 3, 30
+"/Users/spursh/Documents/code/hours-frontend-next/app/admin/components/BulkRejectDialog.tsx", "TypeScript JSX", 0, -1, 0, 0, -1
+"/Users/spursh/Documents/code/hours-frontend-next/app/admin/components/DialogsContainer.tsx", "TypeScript JSX", 0, 24, 0, 0, 24
+"/Users/spursh/Documents/code/hours-frontend-next/app/admin/components/EditAdminDialog.tsx", "TypeScript JSX", 0, 3, 1, 1, 5
+"/Users/spursh/Documents/code/hours-frontend-next/app/admin/components/EditOrganizationDialog.tsx", "TypeScript JSX", 0, 3, 1, 1, 5
+"/Users/spursh/Documents/code/hours-frontend-next/app/admin/components/EditUserDialog.tsx", "TypeScript JSX", 0, 68, 6, 7, 81
+"/Users/spursh/Documents/code/hours-frontend-next/app/admin/components/OverviewTab.tsx", "TypeScript JSX", 0, 6, 0, 0, 6
+"/Users/spursh/Documents/code/hours-frontend-next/app/admin/components/PendingSupervisorApprovals.tsx", "TypeScript JSX", 0, 6, 0, 0, 6
+"/Users/spursh/Documents/code/hours-frontend-next/app/admin/components/SearchAndStatusFilter.tsx", "TypeScript JSX", 0, -1, 0, 0, -1
+"/Users/spursh/Documents/code/hours-frontend-next/app/admin/components/StatisticsTab.tsx", "TypeScript JSX", 0, 4, 1, 1, 6
+"/Users/spursh/Documents/code/hours-frontend-next/app/admin/components/StudentsTab.tsx", "TypeScript JSX", 0, 1, 0, 0, 1
+"/Users/spursh/Documents/code/hours-frontend-next/app/admin/components/StudentsTable.tsx", "TypeScript JSX", 0, 8, 0, 0, 8
+"/Users/spursh/Documents/code/hours-frontend-next/app/admin/components/SupervisorsTab.tsx", "TypeScript JSX", 0, 2, 0, 0, 2
+"/Users/spursh/Documents/code/hours-frontend-next/app/admin/components/SupervisorsTable.tsx", "TypeScript JSX", 0, 18, 0, 0, 18
+"/Users/spursh/Documents/code/hours-frontend-next/app/admin/components/TabsContainer.tsx", "TypeScript JSX", 0, 5, 0, 0, 5
+"/Users/spursh/Documents/code/hours-frontend-next/app/admin/components/TopStudentsCard.tsx", "TypeScript JSX", 0, 12, 1, 3, 16
+"/Users/spursh/Documents/code/hours-frontend-next/app/admin/components/UserHoursDialog.tsx", "TypeScript JSX", 0, 296, 5, 17, 318
+"/Users/spursh/Documents/code/hours-frontend-next/app/admin/components/index.ts", "TypeScript", 1, 0, 0, 0, 1
+"/Users/spursh/Documents/code/hours-frontend-next/app/admin/page.tsx", "TypeScript JSX", 0, 18, 0, 0, 18
+"/Users/spursh/Documents/code/hours-frontend-next/app/login/components/StudentLoginForm.tsx", "TypeScript JSX", 0, -3, 0, 3, 0
+"/Users/spursh/Documents/code/hours-frontend-next/app/register/components/OrganizationField.tsx", "TypeScript JSX", 0, 19, 1, 2, 22
+"/Users/spursh/Documents/code/hours-frontend-next/app/register/components/ProofTypeField.tsx", "TypeScript JSX", 0, 7, 0, 1, 8
+"/Users/spursh/Documents/code/hours-frontend-next/app/student/hours/add/page.tsx", "TypeScript JSX", 0, 73, 1, 5, 79
+"/Users/spursh/Documents/code/hours-frontend-next/app/supervisor/settings/page.tsx", "TypeScript JSX", 0, 81, 4, 11, 96
+"/Users/spursh/Documents/code/hours-frontend-next/components/forms/Field.tsx", "TypeScript JSX", 0, 12, 0, 0, 12
+"/Users/spursh/Documents/code/hours-frontend-next/components/forms/PasswordField.tsx", "TypeScript JSX", 0, 1, 0, 1, 2
+"/Users/spursh/Documents/code/hours-frontend-next/components/layout/top-nav.tsx", "TypeScript JSX", 0, 13, 2, 0, 15
+"/Users/spursh/Documents/code/hours-frontend-next/components/ui/input.tsx", "TypeScript JSX", 0, 5, 0, 0, 5
+"/Users/spursh/Documents/code/hours-frontend-next/components/ui/organization-selector.tsx", "TypeScript JSX", 0, 18, 3, 4, 25
+"/Users/spursh/Documents/code/hours-frontend-next/components/ui/supervisor-selector.tsx", "TypeScript JSX", 0, 236, 12, 18, 266
+"/Users/spursh/Documents/code/hours-frontend-next/components/ui/textarea.tsx", "TypeScript JSX", 0, 8, 0, 0, 8
+"/Users/spursh/Documents/code/hours-frontend-next/hooks/admin/useAdminData.ts", "TypeScript", 17, 0, 0, 7, 24
+"/Users/spursh/Documents/code/hours-frontend-next/hooks/admin/useAdminDialogState.ts", "TypeScript", 12, 0, 0, 1, 13
+"/Users/spursh/Documents/code/hours-frontend-next/hooks/admin/useAdminFilterState.ts", "TypeScript", 5, 0, 0, 0, 5
+"/Users/spursh/Documents/code/hours-frontend-next/hooks/admin/useAdminFiltering.ts", "TypeScript", 13, 0, 0, 2, 15
+"/Users/spursh/Documents/code/hours-frontend-next/hooks/admin/useAdminState.ts", "TypeScript", 17, 0, 0, 2, 19
+"/Users/spursh/Documents/code/hours-frontend-next/hooks/admin/useAdminSupervisorActions.ts", "TypeScript", 13, 0, 0, 2, 15
+"/Users/spursh/Documents/code/hours-frontend-next/hooks/admin/useAdminUserHandlers.ts", "TypeScript", 12, 0, 2, 3, 17
+"/Users/spursh/Documents/code/hours-frontend-next/hooks/admin/useAdminUserHoursHandlers.ts", "TypeScript", 138, 0, 4, 24, 166
+"/Users/spursh/Documents/code/hours-frontend-next/hooks/mutations/useLogin.ts", "TypeScript", 1, 0, 0, 0, 1
+"/Users/spursh/Documents/code/hours-frontend-next/hooks/useAdminFilters.ts", "TypeScript", 6, 0, 0, 2, 8
+"/Users/spursh/Documents/code/hours-frontend-next/lib/api/schemas/users.ts", "TypeScript", 2, 0, 0, 0, 2
+"/Users/spursh/Documents/code/hours-frontend-next/lib/utils/admin-export.ts", "TypeScript", 49, 0, 7, 13, 69
+"/Users/spursh/Documents/code/hours-frontend-next/types/api.ts", "TypeScript", 1, 0, 0, 0, 1
+"Total", "-", 287, 969, 51, 134, 1441

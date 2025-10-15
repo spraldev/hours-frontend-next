@@ -11,16 +11,19 @@ export function useAdminState() {
   const adminData = useAdminDashboard()
   const filterState = useAdminFilterState()
   const dialogState = useAdminDialogState()
-  const { filteredStudents, filteredSupervisors, filteredHours } = useAdminFiltering(
+  const { filteredStudents, filteredSupervisors, filteredHours, filteredOrganizations } = useAdminFiltering(
     adminData.students,
     adminData.supervisors,
     adminData.hours,
+    adminData.organizations,
     filterState.searchTerm,
     filterState.statusFilter,
     filterState.supervisorSearchTerm,
     filterState.supervisorStatusFilter,
     filterState.hoursSearchTerm,
-    filterState.hoursStatusFilter
+    filterState.hoursStatusFilter,
+    filterState.organizationsSearchTerm,
+    filterState.organizationsStatusFilter
   )
   useEffect(() => {
     if (filterState.activeTab === 'admins' && user?.role !== 'superadmin') {
@@ -52,5 +55,6 @@ export function useAdminState() {
     filteredStudents,
     filteredSupervisors,
     filteredHours,
+    filteredOrganizations,
   }
 }

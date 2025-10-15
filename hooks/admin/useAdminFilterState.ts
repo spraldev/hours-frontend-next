@@ -9,6 +9,8 @@ export function useAdminFilterState() {
   const [supervisorStatusFilter, setSupervisorStatusFilter] = useState('all')
   const [hoursSearchTerm, setHoursSearchTerm] = useState('')
   const [hoursStatusFilter, setHoursStatusFilter] = useState('all')
+  const [organizationsSearchTerm, setOrganizationsSearchTerm] = useState('')
+  const [organizationsStatusFilter, setOrganizationsStatusFilter] = useState('all')
   const [selectedHours, setSelectedHours] = useState<string[]>([])
   const [isProcessing, setIsProcessing] = useState(false)
   return {
@@ -17,7 +19,10 @@ export function useAdminFilterState() {
     supervisorSearchTerm, setSupervisorSearchTerm,
     supervisorStatusFilter, setSupervisorStatusFilter,
     hoursSearchTerm, setHoursSearchTerm,
-    hoursStatusFilter, setHoursStatusFilter, selectedHours, setSelectedHours,
+    hoursStatusFilter, setHoursStatusFilter,
+    organizationsSearchTerm, setOrganizationsSearchTerm,
+    organizationsStatusFilter, setOrganizationsStatusFilter,
+    selectedHours, setSelectedHours,
     isProcessing, setIsProcessing,
   }
 }

@@ -9,28 +9,36 @@ export function useAdminFilters() {
   const [hoursStatusFilter, setHoursStatusFilter] = useState('all')
 
   const filterStudents = useMemo(
-    () => (students: any[]) =>
-      students.filter((user) => {
-        const matchesSearch =
-          user.firstName.toLowerCase().includes(searchTerm.toLowerCase()) ||
-          user.lastName.toLowerCase().includes(searchTerm.toLowerCase()) ||
-          user.studentId.includes(searchTerm)
-        return matchesSearch
-      }),
+    () => (students: any[]) => {
+      if (!searchTerm) return students;
+      return students.filter((user) => {
+        const fullName = `${user.firstName} ${user.lastName}`.toLowerCase();
+        const email = user.email.toLowerCase();
+        const studentId = user.studentId || '';
+        const searchLower = searchTerm.toLowerCase();
+        
+        return fullName.includes(searchLower) ||
+               email.includes(searchLower) ||
+               studentId.includes(searchLower);
+      });
+    },
     [searchTerm]
   )
 
   const filterSupervisors = useMemo(
-    () => (supervisors: any[]) =>
-      supervisors.filter((user) => {
-        const matchesSearch =
-          user.firstName.toLowerCase().includes(searchTerm.toLowerCase()) ||
-          user.lastName.toLowerCase().includes(searchTerm.toLowerCase()) ||
-          user.email.toLowerCase().includes(searchTerm.toLowerCase())
+    () => (supervisors: any[]) => {
+      if (!searchTerm) return supervisors;
+      return supervisors.filter((user) => {
+        const fullName = `${user.firstName} ${user.lastName}`.toLowerCase();
+        const email = user.email.toLowerCase();
+        const searchLower = searchTerm.toLowerCase();
+        
+        const matchesSearch = fullName.includes(searchLower) || email.includes(searchLower);
         const matchesStatus =
           statusFilter === 'all' || (statusFilter === 'approved' ? user.isActive : !user.isActive)
-        return matchesSearch && matchesStatus
-      }),
+        return matchesSearch && matchesStatus;
+      });
+    },
     [searchTerm, statusFilter]
   )
 

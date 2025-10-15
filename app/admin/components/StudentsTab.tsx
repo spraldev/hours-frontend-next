@@ -30,7 +30,7 @@ export function StudentsTab({ students, searchTerm, onSearchChange, onEditStuden
           onSearchChange={onSearchChange}
           statusValue="all"
           onStatusChange={() => {}}
-          searchPlaceholder="Search students..."
+          searchPlaceholder="Search by name, email, or student ID..."
           showStatusFilter={false}
         />
         <StudentsTable students={students} onEditStudent={onEditStudent} onViewHours={onViewHours} isProcessing={isProcessing} />
