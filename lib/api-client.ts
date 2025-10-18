@@ -147,8 +147,36 @@ class ApiClient {
     }
   }
 
-  async get<T = any>(endpoint: string): Promise<ApiResponse<T>> {
-    return this.request<T>(endpoint, { method: 'GET' });
+  async get<T = any>(endpoint: string, params?: Record<string, any>): Promise<ApiResponse<T>> {
+    const url = params ? this.buildQueryString(endpoint, params) : endpoint;
+    return this.request<T>(url, { method: 'GET' });
+  }
+
+  private buildQueryString(endpoint: string, params: Record<string, any>): string {
+    const searchParams = new URLSearchParams();
+    
+    Object.entries(params).forEach(([key, value]) => {
+      if (value !== undefined && value !== null && value !== '') {
+        if (typeof value === 'object' && !Array.isArray(value)) {
+          // Handle nested objects (filters)
+          Object.entries(value).forEach(([nestedKey, nestedValue]) => {
+            if (nestedValue !== undefined && nestedValue !== null && nestedValue !== '') {
+              searchParams.append(`${key}[${nestedKey}]`, String(nestedValue));
+            }
+          });
+        } else if (Array.isArray(value)) {
+          // Handle arrays
+          value.forEach((item) => {
+            searchParams.append(key, String(item));
+          });
+        } else {
+          searchParams.append(key, String(value));
+        }
+      }
+    });
+
+    const queryString = searchParams.toString();
+    return queryString ? `${endpoint}?${queryString}` : endpoint;
   }
 
   async post<T = any>(endpoint: string, body?: any): Promise<ApiResponse<T>> {
@@ -185,14 +213,14 @@ class ApiClient {
   }
 
   // Password reset methods
-  async requestPasswordReset(email: string, userType: 'student' | 'supervisor'): Promise<ApiResponse> {
+  async requestPasswordReset(email: string, userType: 'student' | 'supervisor' | 'admin'): Promise<ApiResponse> {
     return this.post('/auth/request-password-reset', {
       email,
       userType,
     });
   }
 
-  async resetPassword(token: string, password: string, userType: 'student' | 'supervisor'): Promise<ApiResponse> {
+  async resetPassword(token: string, password: string, userType: 'student' | 'supervisor' | 'admin'): Promise<ApiResponse> {
     return this.post('/auth/reset-password', {
       token,
       password,

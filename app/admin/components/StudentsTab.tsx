@@ -6,6 +6,9 @@ import { StudentsTable } from './StudentsTable'
 
 interface StudentsTabProps {
   students: any[]
+  studentsPagination: any
+  studentsLoading: boolean
+  studentsActions: any
   searchTerm: string
   onSearchChange: (value: string) => void
   onEditStudent: (student: any) => void
@@ -13,14 +16,26 @@ interface StudentsTabProps {
   isProcessing: boolean
 }
 
-export function StudentsTab({ students, searchTerm, onSearchChange, onEditStudent, onViewHours, isProcessing }: StudentsTabProps) {
+export function StudentsTab({ 
+  students, 
+  studentsPagination,
+  studentsLoading,
+  studentsActions,
+  searchTerm, 
+  onSearchChange, 
+  onEditStudent, 
+  onViewHours, 
+  isProcessing 
+}: StudentsTabProps) {
   return (
     <Card>
       <CardHeader>
         <div className="flex items-center justify-between">
           <div>
             <CardTitle>Students</CardTitle>
-            <CardDescription>Manage student accounts and service hours ({students.length} total)</CardDescription>
+            <CardDescription>
+              Manage student accounts and service hours ({studentsPagination.total} total)
+            </CardDescription>
           </div>
         </div>
       </CardHeader>
@@ -33,7 +48,16 @@ export function StudentsTab({ students, searchTerm, onSearchChange, onEditStuden
           searchPlaceholder="Search by name, email, or student ID..."
           showStatusFilter={false}
         />
-        <StudentsTable students={students} onEditStudent={onEditStudent} onViewHours={onViewHours} isProcessing={isProcessing} />
+        <StudentsTable 
+          students={students} 
+          onEditStudent={onEditStudent} 
+          onViewHours={onViewHours} 
+          isProcessing={isProcessing || studentsLoading}
+          pagination={studentsPagination}
+          onPageChange={studentsActions.setPage}
+          onLimitChange={studentsActions.setLimit}
+          loading={studentsLoading}
+        />
       </CardContent>
     </Card>
   )

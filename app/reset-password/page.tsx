@@ -17,7 +17,7 @@ export default function ResetPasswordPage() {
   const searchParams = useSearchParams()
   
   const [token, setToken] = useState("")
-  const [userType, setUserType] = useState<"student" | "supervisor">("student")
+  const [userType, setUserType] = useState<"student" | "supervisor" | "admin">("student")
   const [password, setPassword] = useState("")
   const [confirmPassword, setConfirmPassword] = useState("")
   const [showPassword, setShowPassword] = useState(false)
@@ -39,7 +39,7 @@ export default function ResetPasswordPage() {
       setError("Invalid or missing reset token. Please request a new password reset.")
     }
 
-    if (typeParam && (typeParam === 'student' || typeParam === 'supervisor')) {
+    if (typeParam && (typeParam === 'student' || typeParam === 'supervisor' || typeParam === 'admin')) {
       setUserType(typeParam)
     }
   }, [searchParams])

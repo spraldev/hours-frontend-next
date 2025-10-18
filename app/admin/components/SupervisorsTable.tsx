@@ -4,16 +4,33 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@
 import { Avatar, AvatarFallback } from '@/components/ui/avatar'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
-import { Edit, Eye } from 'lucide-react'
+import { PaginationControls } from '@/components/ui/pagination-controls'
+import { Edit, Eye, Activity } from 'lucide-react'
+import { PaginationInfo } from '@/types/api'
 
 interface SupervisorsTableProps {
   supervisors: any[]
   onEditSupervisor: (supervisor: any) => void
   onViewHours?: (supervisor: any) => void
+  onViewActivity?: (supervisor: any) => void
   isProcessing: boolean
+  pagination?: PaginationInfo
+  onPageChange?: (page: number) => void
+  onLimitChange?: (limit: number) => void
+  loading?: boolean
 }
 
-export function SupervisorsTable({ supervisors, onEditSupervisor, onViewHours, isProcessing }: SupervisorsTableProps) {
+export function SupervisorsTable({ 
+  supervisors, 
+  onEditSupervisor, 
+  onViewHours, 
+  onViewActivity, 
+  isProcessing,
+  pagination,
+  onPageChange,
+  onLimitChange,
+  loading = false
+}: SupervisorsTableProps) {
   return (
     <div className="overflow-x-auto">
       <Table>
@@ -26,7 +43,16 @@ export function SupervisorsTable({ supervisors, onEditSupervisor, onViewHours, i
           </TableRow>
         </TableHeader>
         <TableBody>
-          {supervisors.length === 0 ? (
+          {loading && supervisors.length === 0 ? (
+            <TableRow>
+              <TableCell colSpan={4} className="text-center py-8">
+                <div className="flex items-center justify-center">
+                  <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-primary"></div>
+                  <span className="ml-2 text-muted-foreground">Loading...</span>
+                </div>
+              </TableCell>
+            </TableRow>
+          ) : supervisors.length === 0 ? (
             <TableRow>
               <TableCell colSpan={4} className="text-center text-muted-foreground">
                 No supervisors found
@@ -80,6 +106,11 @@ export function SupervisorsTable({ supervisors, onEditSupervisor, onViewHours, i
                         <Eye className="h-4 w-4" />
                       </Button>
                     )}
+                    {onViewActivity && (
+                      <Button variant="ghost" size="icon" onClick={() => onViewActivity(supervisor)} disabled={isProcessing} title="View activity">
+                        <Activity className="h-4 w-4" />
+                      </Button>
+                    )}
                     <Button variant="ghost" size="icon" onClick={() => onEditSupervisor(supervisor)} disabled={isProcessing} title="Edit supervisor">
                       <Edit className="h-4 w-4" />
                     </Button>
@@ -90,6 +121,17 @@ export function SupervisorsTable({ supervisors, onEditSupervisor, onViewHours, i
           )}
         </TableBody>
       </Table>
+      
+      {pagination && onPageChange && onLimitChange && (
+        <PaginationControls
+          pagination={pagination}
+          onPageChange={onPageChange}
+          onLimitChange={onLimitChange}
+          loading={loading}
+          showItemsPerPage={true}
+          showJumpToPage={true}
+        />
+      )}
     </div>
   )
 }

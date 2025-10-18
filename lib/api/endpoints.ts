@@ -7,7 +7,9 @@ import type {
   Organization, 
   AdminOverview, 
   StudentStatistics,
-  SupervisorStatistics
+  SupervisorStatistics,
+  PaginatedResponse,
+  PaginationParams
 } from '@/types/api'
 import type { 
   LoginInput, 
@@ -40,18 +42,23 @@ export const authApi = {
   forgotPassword: (data: ForgotPasswordInput) =>
     apiClient.post('/auth/forgot-password', data),
   
-  resetPassword: (token: string, password: string, userType: 'student' | 'supervisor') =>
+  resetPassword: (token: string, password: string, userType: 'student' | 'supervisor' | 'admin') =>
     apiClient.post('/auth/reset-password', { token, password, userType }),
 }
 
 export const adminApi = {
   getOverview: () => apiClient.get<AdminOverview>('/admin/overview'),
-  getStudents: () => apiClient.get<Student[]>('/admin/students'),
-  getSupervisors: () => apiClient.get<Supervisor[]>('/admin/supervisors'),
-  getPendingSupervisors: () => apiClient.get<Supervisor[]>('/admin/supervisors/pending'),
-  getHours: () => apiClient.get<Hour[]>('/admin/hours'),
-  getOrganizations: () => apiClient.get<Organization[]>('/admin/organizations'),
-  getAdmins: () => apiClient.get<any[]>('/admin/admins'),
+  getStudents: (params?: PaginationParams) => apiClient.get<PaginatedResponse<Student>>('/admin/students', params),
+  getSupervisors: (params?: PaginationParams) => apiClient.get<PaginatedResponse<Supervisor>>('/admin/supervisors', params),
+  getPendingSupervisors: (params?: PaginationParams) => apiClient.get<PaginatedResponse<Supervisor>>('/admin/supervisors/pending', params),
+  getHours: (params?: PaginationParams) => apiClient.get<PaginatedResponse<Hour>>('/admin/hours', params),
+  getUserHours: (userId: string, params?: PaginationParams) => apiClient.get<PaginatedResponse<Hour>>(`/admin/users/${userId}/hours`, params),
+  getOrganizations: (params?: PaginationParams) => apiClient.get<PaginatedResponse<Organization>>('/admin/organizations', params),
+  getAdmins: (params?: PaginationParams) => apiClient.get<PaginatedResponse<any>>('/admin/admins', params),
+  
+  // Limited endpoints for overview widgets
+  getRecentHours: (limit?: number) => apiClient.get<PaginatedResponse<Hour>>(`/admin/hours?recent=true&limit=${limit || 5}`),
+  getTopStudents: (limit?: number) => apiClient.get<PaginatedResponse<Student>>(`/admin/students?top=true&limit=${limit || 5}`),
   
   approveSupervisor: (id: string) => apiClient.post(`/admin/supervisors/${id}/approve`),
   rejectSupervisor: (id: string, reason: string) => 
@@ -81,26 +88,30 @@ export const adminApi = {
   
   createAdmin: (data: AdminCreateInput) =>
     apiClient.post('/admin/admins', data),
+  updateAdmin: (id: string, data: AdminCreateInput) =>
+    apiClient.put(`/admin/admins/${id}`, data),
   deleteAdmin: (id: string) => apiClient.delete(`/admin/admins/${id}`),
+  resetAdminPassword: (username: string, newPassword: string) =>
+    apiClient.post('/admin/admins/reset-password', { username, newPassword }),
 }
 
 export const studentApi = {
   getProfile: () => apiClient.get<Student>('/student/student'),
   getStatistics: () => apiClient.get<StudentStatistics>('/student/statistics'),
-  getHours: () => apiClient.get<Hour[]>('/student/hours'),
+  getHours: (params?: PaginationParams) => apiClient.get<PaginatedResponse<Hour>>('/student/hours', params),
   
   createHour: (data: HourCreateInput) => apiClient.post('/student/hours', data),
   updateHour: (id: string, data: HourUpdateInput) => apiClient.put(`/student/hours/${id}`, data),
   deleteHour: (id: string) => apiClient.delete(`/student/hours/${id}`),
   
-  getSupervisors: () => apiClient.get<Supervisor[]>('/student/supervisors'),
+  getSupervisors: (params?: PaginationParams) => apiClient.get<PaginatedResponse<Supervisor>>('/student/supervisors', params),
 }
 
 export const supervisorApi = {
   getProfile: () => apiClient.get<Supervisor>('/supervisor/supervisor'),
   getStatistics: () => apiClient.get<SupervisorStatistics>('/supervisor/statistics'),
-  getPendingHours: () => apiClient.get<Hour[]>('/supervisor/hours/pending'),
-  getHours: () => apiClient.get<Hour[]>('/supervisor/hours'),
+  getPendingHours: (params?: PaginationParams) => apiClient.get<PaginatedResponse<Hour>>('/supervisor/hours/pending', params),
+  getHours: (params?: PaginationParams) => apiClient.get<PaginatedResponse<Hour>>('/supervisor/hours', params),
   
   updateHourStatus: (id: string, status: 'approved' | 'rejected', rejectionReason?: string) =>
     apiClient.put(`/supervisor/hours/${id}/status`, { status, rejectionReason }),

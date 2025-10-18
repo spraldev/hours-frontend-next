@@ -6,17 +6,15 @@ import { Users, Clock, AlertTriangle, Building2 } from 'lucide-react'
 
 interface AdminStatsCardsProps {
   overview: any
-  students: any[]
-  supervisors: any[]
-  hours: any[]
-  organizations: any[]
 }
 
-export function AdminStatsCards({ overview, students, supervisors, hours, organizations }: AdminStatsCardsProps) {
-  const totalStudents = overview?.totalStudents || students.length
-  const totalHours = overview?.totalHours || hours.reduce((sum, h) => (h.status === 'approved' ? sum + h.hours : sum), 0)
-  const pendingHours = overview?.pendingHours || hours.filter((h) => h.status === 'pending').length
-  const activeSupervisors = overview?.totalSupervisors || supervisors.filter((s) => s.isActive).length
+export function AdminStatsCards({ overview }: AdminStatsCardsProps) {
+  // Use only overview data - no need to fetch full datasets for counts
+  const totalStudents = overview?.totalStudents || 0
+  const totalHours = overview?.totalHours || 0
+  const pendingHours = overview?.pendingHours || 0
+  const activeSupervisors = overview?.totalSupervisors || 0
+  const totalOrganizations = overview?.totalOrganizations || 0
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
@@ -73,7 +71,7 @@ export function AdminStatsCards({ overview, students, supervisors, hours, organi
           <div className="flex items-center justify-between">
             <div>
               <div className="text-3xl font-bold">{activeSupervisors}</div>
-              <p className="text-xs text-muted-foreground">{organizations.length} organizations</p>
+              <p className="text-xs text-muted-foreground">{totalOrganizations} organizations</p>
             </div>
             <Building2 className="h-8 w-8 text-purple-500/60" />
           </div>

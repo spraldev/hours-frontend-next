@@ -4,6 +4,7 @@ import { useAdminSupervisorActions } from './admin/useAdminSupervisorActions'
 import { useAdminHourActions } from './admin/useAdminHourActions'
 import { useAdminOrganizationActions } from './admin/useAdminOrganizationActions'
 import { useAdminAdminActions } from './admin/useAdminAdminActions'
+import { useUserHoursPagination } from './admin/useUserHoursPagination'
 
 export function useAdminDashboard() {
   const data = useAdminData()
@@ -12,5 +13,6 @@ export function useAdminDashboard() {
   const hourActions = useAdminHourActions(data.refetch, data.setError)
   const organizationActions = useAdminOrganizationActions(data.refetch, data.setError)
   const adminActions = useAdminAdminActions(data.refetch, data.setError)
-  return { ...data, ...studentActions, ...supervisorActions, ...hourActions, ...organizationActions, ...adminActions }
+  const userHoursPagination = useUserHoursPagination()
+  return { ...data, ...studentActions, ...supervisorActions, ...hourActions, ...organizationActions, ...adminActions, ...userHoursPagination }
 }

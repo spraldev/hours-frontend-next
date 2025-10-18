@@ -33,6 +33,11 @@ export function useAdminDialogState() {
   const [userHoursSearchTerm, setUserHoursSearchTerm] = useState('')
   const [userHoursStatusFilter, setUserHoursStatusFilter] = useState('all')
   const [selectedUserHours, setSelectedUserHours] = useState<string[]>([])
+  const [selectedSupervisorForActivity, setSelectedSupervisorForActivity] = useState<any>(null)
+  const [isSupervisorActivityDialogOpen, setIsSupervisorActivityDialogOpen] = useState(false)
+  const [isExportClassDialogOpen, setIsExportClassDialogOpen] = useState(false)
+  const [isResetAdminPasswordDialogOpen, setIsResetAdminPasswordDialogOpen] = useState(false)
+  const [resetPasswordAdmin, setResetPasswordAdmin] = useState<any>(null)
   
   return {
     editingUser, setEditingUser, isEditDialogOpen, setIsEditDialogOpen,
@@ -55,5 +60,10 @@ export function useAdminDialogState() {
     userHoursSearchTerm, setUserHoursSearchTerm,
     userHoursStatusFilter, setUserHoursStatusFilter,
     selectedUserHours, setSelectedUserHours,
+    selectedSupervisorForActivity, setSelectedSupervisorForActivity,
+    isSupervisorActivityDialogOpen, setIsSupervisorActivityDialogOpen,
+    isExportClassDialogOpen, setIsExportClassDialogOpen,
+    isResetAdminPasswordDialogOpen, setIsResetAdminPasswordDialogOpen,
+    resetPasswordAdmin, setResetPasswordAdmin,
   }
 }

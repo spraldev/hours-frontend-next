@@ -10,8 +10,11 @@ import {
   DeleteHourDialog,
   CreateAdminDialog,
   EditAdminDialog,
+  ResetAdminPasswordDialog,
   DeleteGraduatedStudentsDialog,
   UserHoursDialog,
+  SupervisorActivityDialog,
+  ExportClassSelectionDialog,
 } from './index'
 
 interface DialogsContainerProps {
@@ -112,6 +115,13 @@ export function DialogsContainer({ state, userHandlers, hoursHandlers, orgHandle
         onSave={adminHandlers.handleSaveAdmin}
         isProcessing={state.isProcessing}
       />
+      <ResetAdminPasswordDialog
+        open={state.isResetAdminPasswordDialogOpen}
+        onOpenChange={state.setIsResetAdminPasswordDialogOpen}
+        admin={state.resetPasswordAdmin}
+        onSave={adminHandlers.handleResetAdminPassword}
+        isProcessing={state.isProcessing}
+      />
       <DeleteGraduatedStudentsDialog
         open={state.isDeleteGraduatedDialogOpen}
         onOpenChange={state.setIsDeleteGraduatedDialogOpen}
@@ -139,8 +149,23 @@ export function DialogsContainer({ state, userHandlers, hoursHandlers, orgHandle
           onEditHour={userHoursHandlers.handleEditUserHour}
           onDeleteHour={userHoursHandlers.handleDeleteUserHour}
           isProcessing={state.isProcessing}
+          pagination={state.userHoursPagination}
+          onPageChange={state.setPage}
+          onLimitChange={state.setLimit}
+          loading={state.userHoursLoading}
         />
       )}
+      <SupervisorActivityDialog
+        supervisor={state.selectedSupervisorForActivity}
+        isOpen={state.isSupervisorActivityDialogOpen}
+        onClose={() => state.setIsSupervisorActivityDialogOpen(false)}
+      />
+      <ExportClassSelectionDialog
+        isOpen={state.isExportClassDialogOpen}
+        onClose={() => state.setIsExportClassDialogOpen(false)}
+        students={state.students || []}
+        hours={state.hours || []}
+      />
     </>
   )
 }

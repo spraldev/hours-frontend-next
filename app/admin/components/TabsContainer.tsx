@@ -14,8 +14,34 @@ interface TabsContainerProps {
 }
 
 export function TabsContainer({ state, userHandlers, hoursHandlers, orgHandlers, supervHandlers, adminHandlers, userHoursHandlers }: TabsContainerProps) {
+  // Lazy load data when tabs are clicked
+  const handleTabChange = (tabValue: string) => {
+    state.setActiveTab(tabValue)
+    
+    // Trigger lazy loading based on tab
+    switch (tabValue) {
+      case 'students':
+        state.loadStudents()
+        break
+      case 'supervisors':
+        state.loadSupervisors()
+        break
+      case 'hours':
+        state.loadHours()
+        break
+      case 'organizations':
+        state.loadOrganizations()
+        break
+      case 'admins':
+        if (state.user?.role === 'superadmin') {
+          state.loadAdmins()
+        }
+        break
+    }
+  }
+
   return (
-    <Tabs value={state.activeTab} onValueChange={state.setActiveTab} className="w-full">
+    <Tabs value={state.activeTab} onValueChange={handleTabChange} className="w-full">
       <TabsList className="mb-6">
         <TabsTrigger value="overview">Overview</TabsTrigger>
         <TabsTrigger value="students">Students</TabsTrigger>
@@ -44,6 +70,9 @@ export function TabsContainer({ state, userHandlers, hoursHandlers, orgHandlers,
       <TabsContent value="students">
         <StudentsTab
           students={state.filteredStudents}
+          studentsPagination={state.studentsPagination}
+          studentsLoading={state.studentsLoading}
+          studentsActions={state.studentsActions}
           searchTerm={state.searchTerm}
           onSearchChange={state.setSearchTerm}
           onEditStudent={(student) => userHandlers.handleEditUser(student, 'student')}
@@ -54,12 +83,16 @@ export function TabsContainer({ state, userHandlers, hoursHandlers, orgHandlers,
       <TabsContent value="supervisors">
         <SupervisorsTab
           supervisors={state.filteredSupervisors}
+          supervisorsPagination={state.supervisorsPagination}
+          supervisorsLoading={state.supervisorsLoading}
+          supervisorsActions={state.supervisorsActions}
           searchTerm={state.supervisorSearchTerm}
           onSearchChange={state.setSupervisorSearchTerm}
           statusFilter={state.supervisorStatusFilter}
           onStatusChange={state.setSupervisorStatusFilter}
           onEditSupervisor={(supervisor) => userHandlers.handleEditUser(supervisor, 'supervisor')}
           onViewHours={userHoursHandlers?.handleOpenUserHours ? (supervisor) => userHoursHandlers.handleOpenUserHours(supervisor, 'supervisor') : undefined}
+          onViewActivity={supervHandlers.handleViewActivity}
           isProcessing={state.isProcessing}
         />
       </TabsContent>
@@ -67,6 +100,9 @@ export function TabsContainer({ state, userHandlers, hoursHandlers, orgHandlers,
         <HoursTab
           hours={state.filteredHours}
           allHours={state.hours}
+          hoursPagination={state.hoursPagination}
+          hoursLoading={state.hoursLoading}
+          hoursActions={state.hoursActions}
           searchTerm={state.hoursSearchTerm}
           onSearchChange={state.setHoursSearchTerm}
           statusFilter={state.hoursStatusFilter}
@@ -85,6 +121,9 @@ export function TabsContainer({ state, userHandlers, hoursHandlers, orgHandlers,
       <TabsContent value="organizations">
         <OrganizationsTab
           organizations={state.filteredOrganizations}
+          organizationsPagination={state.organizationsPagination}
+          organizationsLoading={state.organizationsLoading}
+          organizationsActions={state.organizationsActions}
           searchTerm={state.organizationsSearchTerm}
           onSearchChange={state.setOrganizationsSearchTerm}
           statusFilter={state.organizationsStatusFilter}
@@ -102,8 +141,12 @@ export function TabsContainer({ state, userHandlers, hoursHandlers, orgHandlers,
         <TabsContent value="admins">
           <AdminsTab
             admins={state.admins}
+            adminsPagination={state.adminsPagination}
+            adminsLoading={state.adminsLoading}
+            adminsActions={state.adminsActions}
             onCreateAdmin={() => state.setIsCreateAdminDialogOpen(true)}
             onEditAdmin={adminHandlers.handleEditAdmin}
+            onResetPassword={adminHandlers.handleOpenResetPassword}
             isProcessing={state.isProcessing}
           />
         </TabsContent>

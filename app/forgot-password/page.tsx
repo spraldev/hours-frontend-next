@@ -7,7 +7,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Alert, AlertDescription } from "@/components/ui/alert"
-import { ArrowLeft, Mail, Users, UserCheck, AlertCircle, CheckCircle } from "lucide-react"
+import { ArrowLeft, Mail, Users, UserCheck, Shield, AlertCircle, CheckCircle } from "lucide-react"
 import Link from "next/link"
 import { apiClient } from "@/lib/api-client"
 import toast from "react-hot-toast"
@@ -15,7 +15,7 @@ import toast from "react-hot-toast"
 export default function ForgotPasswordPage() {
   const router = useRouter()
   const [email, setEmail] = useState("")
-  const [userType, setUserType] = useState<"student" | "supervisor">("student")
+  const [userType, setUserType] = useState<"student" | "supervisor" | "admin">("student")
   const [isLoading, setIsLoading] = useState(false)
   const [message, setMessage] = useState("")
   const [error, setError] = useState("")
@@ -147,7 +147,7 @@ export default function ForgotPasswordPage() {
             <form onSubmit={handleSubmit} className="space-y-6">
               <div className="space-y-2">
                 <Label htmlFor="userType">I am a:</Label>
-                <div className="grid grid-cols-2 gap-2">
+                <div className="grid grid-cols-3 gap-2">
                   <Button
                     type="button"
                     variant={userType === "student" ? "default" : "outline"}
@@ -168,6 +168,16 @@ export default function ForgotPasswordPage() {
                     <UserCheck className="h-4 w-4" />
                     Staff
                   </Button>
+                  <Button
+                    type="button"
+                    variant={userType === "admin" ? "default" : "outline"}
+                    onClick={() => setUserType("admin")}
+                    className="flex items-center gap-2"
+                    disabled={isLoading}
+                  >
+                    <Shield className="h-4 w-4" />
+                    Admin
+                  </Button>
                 </div>
               </div>
 
@@ -186,7 +196,9 @@ export default function ForgotPasswordPage() {
                 <p className="text-xs text-muted-foreground">
                   {userType === "student" 
                     ? "Enter the email address associated with your student account"
-                    : "Enter the email address associated with your staff account"
+                    : userType === "supervisor"
+                    ? "Enter the email address associated with your staff account"
+                    : "Enter the email address associated with your admin account"
                   }
                 </p>
               </div>

@@ -5,23 +5,28 @@ import { Button } from '@/components/ui/button'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
 import { Avatar, AvatarFallback } from '@/components/ui/avatar'
 import { Badge } from '@/components/ui/badge'
-import { Plus, Edit, Shield } from 'lucide-react'
+import { PaginationControls } from '@/components/ui/pagination-controls'
+import { Plus, Edit, Shield, KeyRound } from 'lucide-react'
 
 interface AdminsTabProps {
   admins: any[]
+  adminsPagination: any
+  adminsLoading: boolean
+  adminsActions: any
   onCreateAdmin: () => void
   onEditAdmin: (admin: any) => void
+  onResetPassword: (admin: any) => void
   isProcessing: boolean
 }
 
-export function AdminsTab({ admins, onCreateAdmin, onEditAdmin, isProcessing }: AdminsTabProps) {
+export function AdminsTab({ admins, adminsPagination, adminsLoading, adminsActions, onCreateAdmin, onEditAdmin, onResetPassword, isProcessing }: AdminsTabProps) {
   return (
     <Card>
       <CardHeader>
         <div className="flex items-center justify-between">
           <div>
             <CardTitle>Administrators</CardTitle>
-            <CardDescription>Manage system administrators and their permissions ({admins.length} total)</CardDescription>
+            <CardDescription>Manage system administrators and their permissions ({adminsPagination.total} total)</CardDescription>
           </div>
           <Button onClick={onCreateAdmin} className="bg-[#0084ff] hover:bg-[#0070e6] text-white">
             <Plus className="mr-2 h-4 w-4" />
@@ -44,7 +49,7 @@ export function AdminsTab({ admins, onCreateAdmin, onEditAdmin, isProcessing }: 
                   <TableHead>Email</TableHead>
                   <TableHead>Role</TableHead>
                   <TableHead>Created</TableHead>
-                  <TableHead className="w-[50px]"></TableHead>
+                  <TableHead className="w-[100px]">Actions</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
@@ -68,9 +73,26 @@ export function AdminsTab({ admins, onCreateAdmin, onEditAdmin, isProcessing }: 
                     </TableCell>
                     <TableCell>{new Date(admin.createdAt).toLocaleDateString()}</TableCell>
                     <TableCell>
-                      <Button variant="ghost" size="icon" onClick={() => onEditAdmin(admin)} disabled={isProcessing}>
-                        <Edit className="h-4 w-4" />
-                      </Button>
+                      <div className="flex items-center gap-1">
+                        <Button 
+                          variant="ghost" 
+                          size="icon" 
+                          onClick={() => onEditAdmin(admin)} 
+                          disabled={isProcessing}
+                          title="Edit Admin"
+                        >
+                          <Edit className="h-4 w-4" />
+                        </Button>
+                        <Button 
+                          variant="ghost" 
+                          size="icon" 
+                          onClick={() => onResetPassword(admin)} 
+                          disabled={isProcessing}
+                          title="Reset Password"
+                        >
+                          <KeyRound className="h-4 w-4" />
+                        </Button>
+                      </div>
                     </TableCell>
                   </TableRow>
                 ))}
@@ -78,6 +100,12 @@ export function AdminsTab({ admins, onCreateAdmin, onEditAdmin, isProcessing }: 
             </Table>
           </div>
         )}
+        <PaginationControls
+          pagination={adminsPagination}
+          onPageChange={adminsActions.setPage}
+          onLimitChange={adminsActions.setLimit}
+          loading={adminsLoading}
+        />
       </CardContent>
     </Card>
   )

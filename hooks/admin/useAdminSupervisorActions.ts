@@ -79,5 +79,18 @@ export function useAdminSupervisorActions(refetch: () => Promise<void>, setError
     }
   }
 
-  return { approveSupervisor, rejectSupervisor, updateSupervisor, deleteSupervisor, resetSupervisorPassword, updateSupervisorOrganizations }
+  const getSupervisorActivity = async (limit: number = 50) => {
+    try {
+      const response = await apiClient.get(`/admin/supervisors/activity?limit=${limit}`)
+      if (response.success) {
+        return response.data
+      }
+      return null
+    } catch (err: any) {
+      setError(err.message || 'Failed to fetch supervisor activity')
+      return null
+    }
+  }
+
+  return { approveSupervisor, rejectSupervisor, updateSupervisor, deleteSupervisor, resetSupervisorPassword, updateSupervisorOrganizations, getSupervisorActivity }
 }

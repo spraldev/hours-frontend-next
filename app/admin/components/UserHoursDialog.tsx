@@ -9,8 +9,11 @@ import { Button } from '@/components/ui/button'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
 import { Checkbox } from '@/components/ui/checkbox'
 import { Badge } from '@/components/ui/badge'
+import { PaginationControls } from '@/components/ui/pagination-controls'
 import { CheckCircle, XCircle, Edit, Trash2, Search, Clock } from 'lucide-react'
 import { useState } from 'react'
+import { PaginationInfo } from '@/types/api'
+import { LoadingSpinner } from '@/components/feedback/LoadingSpinner'
 
 interface UserHoursDialogProps {
   open: boolean
@@ -30,6 +33,10 @@ interface UserHoursDialogProps {
   onEditHour: (hour: any) => void
   onDeleteHour: (hour: any) => void
   isProcessing: boolean
+  pagination?: PaginationInfo
+  onPageChange?: (page: number) => void
+  onLimitChange?: (limit: number) => void
+  loading?: boolean
 }
 
 export function UserHoursDialog({
@@ -50,6 +57,10 @@ export function UserHoursDialog({
   onEditHour,
   onDeleteHour,
   isProcessing,
+  pagination,
+  onPageChange,
+  onLimitChange,
+  loading = false,
 }: UserHoursDialogProps) {
   const [showRejectDialog, setShowRejectDialog] = useState(false)
   const [rejectionReason, setRejectionReason] = useState('')
@@ -84,9 +95,10 @@ export function UserHoursDialog({
                 {user.lastName[0]}
               </AvatarFallback>
             </Avatar>
-            <div>
-              <DialogTitle>
+            <div className="flex-1">
+              <DialogTitle className="flex items-center gap-2">
                 {user.firstName} {user.lastName}
+                {loading && <LoadingSpinner size="sm" />}
               </DialogTitle>
               <DialogDescription>{user.email}</DialogDescription>
             </div>
@@ -94,34 +106,60 @@ export function UserHoursDialog({
         </DialogHeader>
 
         {/* Summary Stats */}
-        {userStats && (
-          <div className="grid grid-cols-4 gap-4 mb-6">
-            <Card>
-              <CardContent className="p-4">
-                <div className="text-2xl font-bold">{userStats.totalHours}h</div>
-                <div className="text-sm text-muted-foreground">Total Hours</div>
-              </CardContent>
-            </Card>
-            <Card>
-              <CardContent className="p-4">
-                <div className="text-2xl font-bold text-yellow-600">{userStats.pendingHours}</div>
-                <div className="text-sm text-muted-foreground">Pending</div>
-              </CardContent>
-            </Card>
-            <Card>
-              <CardContent className="p-4">
-                <div className="text-2xl font-bold text-green-600">{userStats.approvedHours}</div>
-                <div className="text-sm text-muted-foreground">Approved</div>
-              </CardContent>
-            </Card>
-            <Card>
-              <CardContent className="p-4">
-                <div className="text-2xl font-bold text-red-600">{userStats.rejectedHours}</div>
-                <div className="text-sm text-muted-foreground">Rejected</div>
-              </CardContent>
-            </Card>
-          </div>
-        )}
+        <div className="grid grid-cols-4 gap-4 mb-6">
+          {loading ? (
+            // Loading state for stats
+            Array.from({ length: 4 }).map((_, index) => (
+              <Card key={index}>
+                <CardContent className="p-4">
+                  <div className="flex items-center justify-center h-16">
+                    <LoadingSpinner size="sm" />
+                  </div>
+                </CardContent>
+              </Card>
+            ))
+          ) : userStats ? (
+            // Stats data
+            <>
+              <Card>
+                <CardContent className="p-4">
+                  <div className="text-2xl font-bold">{userStats.totalHours}h</div>
+                  <div className="text-sm text-muted-foreground">Total Hours</div>
+                </CardContent>
+              </Card>
+              <Card>
+                <CardContent className="p-4">
+                  <div className="text-2xl font-bold text-yellow-600">{userStats.pendingHours}</div>
+                  <div className="text-sm text-muted-foreground">Pending</div>
+                </CardContent>
+              </Card>
+              <Card>
+                <CardContent className="p-4">
+                  <div className="text-2xl font-bold text-green-600">{userStats.approvedHours}</div>
+                  <div className="text-sm text-muted-foreground">Approved</div>
+                </CardContent>
+              </Card>
+              <Card>
+                <CardContent className="p-4">
+                  <div className="text-2xl font-bold text-red-600">{userStats.rejectedHours}</div>
+                  <div className="text-sm text-muted-foreground">Rejected</div>
+                </CardContent>
+              </Card>
+            </>
+          ) : (
+            // No stats available
+            Array.from({ length: 4 }).map((_, index) => (
+              <Card key={index}>
+                <CardContent className="p-4">
+                  <div className="text-2xl font-bold text-muted-foreground">-</div>
+                  <div className="text-sm text-muted-foreground">
+                    {index === 0 ? 'Total Hours' : index === 1 ? 'Pending' : index === 2 ? 'Approved' : 'Rejected'}
+                  </div>
+                </CardContent>
+              </Card>
+            ))
+          )}
+        </div>
 
         {/* Search and Filter Controls */}
         <div className="flex items-center gap-4 mb-4">
@@ -132,9 +170,10 @@ export function UserHoursDialog({
               value={searchTerm}
               onChange={(e) => onSearchChange(e.target.value)}
               className="pl-10"
+              disabled={loading}
             />
           </div>
-          <Select value={statusFilter} onValueChange={onStatusChange}>
+          <Select value={statusFilter} onValueChange={onStatusChange} disabled={loading}>
             <SelectTrigger className="w-[180px]">
               <SelectValue placeholder="Filter by status" />
             </SelectTrigger>
@@ -197,7 +236,13 @@ export function UserHoursDialog({
         )}
 
         {/* Hours Table */}
-        {filteredHours.length === 0 ? (
+        {loading ? (
+          <div className="text-center py-12">
+            <LoadingSpinner size="lg" />
+            <h3 className="text-lg font-semibold mb-2 mt-4">Loading hours...</h3>
+            <p className="text-muted-foreground">Please wait while we fetch the data.</p>
+          </div>
+        ) : filteredHours.length === 0 ? (
           <div className="text-center py-12">
             <Clock className="mx-auto h-12 w-12 text-muted-foreground mb-4" />
             <h3 className="text-lg font-semibold mb-2">No hours found</h3>
@@ -307,6 +352,18 @@ export function UserHoursDialog({
               </TableBody>
             </Table>
           </div>
+        )}
+        
+        {/* Pagination Controls */}
+        {pagination && onPageChange && onLimitChange && (
+          <PaginationControls
+            pagination={pagination}
+            onPageChange={onPageChange}
+            onLimitChange={onLimitChange}
+            loading={loading}
+            showItemsPerPage={true}
+            showJumpToPage={true}
+          />
         )}
       </DialogContent>
     </Dialog>

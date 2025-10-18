@@ -26,6 +26,43 @@ export function StatisticsTab({ students, supervisors, hours, organizations }: S
   const approvalRate = safeHours.length > 0 ? Math.round((safeHours.filter((h) => h.status === 'approved').length / safeHours.length) * 100) : 0
   const avgHoursPerStudent = safeStudents.length > 0 ? Math.round((approvedHours / safeStudents.length) * 10) / 10 : 0
 
+  // Calculate hours per graduation year (class)
+  const hoursByClass = safeStudents.reduce((acc, student) => {
+    const graduationYear = student.graduatingYear
+    const classKey = `Class of ${graduationYear}`
+    
+    if (!acc[classKey]) {
+      acc[classKey] = {
+        year: graduationYear,
+        students: 0,
+        totalHours: 0,
+        approvedHours: 0
+      }
+    }
+    
+    acc[classKey].students++
+    
+    // Calculate hours for this student
+    const studentHours = safeHours.filter(hour => {
+      const hourStudent = typeof hour.student === 'string' ? hour.student : hour.student?._id
+      return hourStudent === student._id
+    })
+    
+    const studentTotalHours = studentHours.reduce((sum, h) => sum + h.hours, 0)
+    const studentApprovedHours = studentHours
+      .filter(h => h.status === 'approved')
+      .reduce((sum, h) => sum + h.hours, 0)
+    
+    acc[classKey].totalHours += studentTotalHours
+    acc[classKey].approvedHours += studentApprovedHours
+    
+    return acc
+  }, {} as Record<string, { year: number; students: number; totalHours: number; approvedHours: number }>)
+
+  // Sort classes by year
+  const sortedClasses = Object.entries(hoursByClass)
+    .sort(([, a], [, b]) => a.year - b.year)
+
   return (
     <div className="space-y-6">
       <Card className="p-6">
@@ -99,6 +136,53 @@ export function StatisticsTab({ students, supervisors, hours, organizations }: S
               <div className="text-xs text-muted-foreground mt-1">Based on approved hours</div>
             </div>
           </div>
+        </CardContent>
+      </Card>
+
+      <Card className="p-6">
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2">
+            <Clock className="h-5 w-5" />
+            Hours per Class
+          </CardTitle>
+          <CardDescription>Community service hours breakdown by graduation year</CardDescription>
+        </CardHeader>
+        <CardContent>
+          {sortedClasses.length > 0 ? (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              {sortedClasses.map(([classKey, data]) => (
+                <div key={classKey} className="border rounded-lg p-4 bg-muted/30">
+                  <div className="text-center">
+                    <div className="text-lg font-semibold text-[#0084ff] mb-2">{classKey}</div>
+                    <div className="space-y-2">
+                      <div className="flex justify-between items-center">
+                        <span className="text-sm text-muted-foreground">Students:</span>
+                        <span className="font-medium">{data.students}</span>
+                      </div>
+                      <div className="flex justify-between items-center">
+                        <span className="text-sm text-muted-foreground">Total Hours:</span>
+                        <span className="font-medium">{data.totalHours}</span>
+                      </div>
+                      <div className="flex justify-between items-center">
+                        <span className="text-sm text-muted-foreground">Approved Hours:</span>
+                        <span className="font-medium text-green-600">{data.approvedHours}</span>
+                      </div>
+                      <div className="flex justify-between items-center">
+                        <span className="text-sm text-muted-foreground">Avg per Student:</span>
+                        <span className="font-medium text-indigo-600">
+                          {data.students > 0 ? Math.round((data.approvedHours / data.students) * 10) / 10 : 0}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          ) : (
+            <div className="text-center py-8 text-muted-foreground">
+              No student data available
+            </div>
+          )}
         </CardContent>
       </Card>
     </div>

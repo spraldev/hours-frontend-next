@@ -5,6 +5,8 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Button } from '@/components/ui/button'
 import { Checkbox } from '@/components/ui/checkbox'
 import { Label } from '@/components/ui/label'
+import { PaginationControls } from '@/components/ui/pagination-controls'
+import { PaginationInfo } from '@/types/api'
 import { CheckCircle } from 'lucide-react'
 import { EmptyApprovalQueue } from './EmptyApprovalQueue'
 import { ApprovalQueueEntry } from './ApprovalQueueEntry'
@@ -25,6 +27,10 @@ interface ApprovalQueueTabProps {
   setBulkAction: (action: 'approve' | 'reject' | null) => void
   setRejectionReason: (reason: string) => void
   getTimeAgo: (date: string) => string
+  pagination?: PaginationInfo
+  onPageChange?: (page: number) => void
+  onLimitChange?: (limit: number) => void
+  loading?: boolean
 }
 
 export function ApprovalQueueTab({
@@ -42,6 +48,10 @@ export function ApprovalQueueTab({
   setBulkAction,
   setRejectionReason,
   getTimeAgo,
+  pagination,
+  onPageChange,
+  onLimitChange,
+  loading = false,
 }: ApprovalQueueTabProps) {
   return (
     <Card>
@@ -49,7 +59,10 @@ export function ApprovalQueueTab({
         <div className="flex items-center justify-between">
           <div>
             <CardTitle>Approval Queue</CardTitle>
-            <CardDescription>Review and approve student service hour submissions</CardDescription>
+            <CardDescription>
+              Review and approve student service hour submissions
+              {pagination && ` (${pagination.total} total)`}
+            </CardDescription>
           </div>
           {selectedEntries.length > 0 && (
             <div className="flex items-center space-x-2">
@@ -75,6 +88,14 @@ export function ApprovalQueueTab({
               <ApprovalQueueEntry key={entry._id} entry={entry} isSelected={selectedEntries.includes(entry._id)} isSubmitting={isSubmitting} onSelect={(checked) => onSelectEntry(entry._id, checked)} onApprove={() => onIndividualApprove(entry._id)} onReject={(reason) => onIndividualReject(entry._id, reason)} getTimeAgo={getTimeAgo} />
             ))}
           </div>
+        )}
+        {pagination && onPageChange && onLimitChange && (
+          <PaginationControls
+            pagination={pagination}
+            onPageChange={onPageChange}
+            onLimitChange={onLimitChange}
+            loading={loading}
+          />
         )}
       </CardContent>
     </Card>

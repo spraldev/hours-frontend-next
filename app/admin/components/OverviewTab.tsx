@@ -9,10 +9,10 @@ import { SystemStatusCard } from './SystemStatusCard'
 
 interface OverviewTabProps {
   overview: any
-  students: any[]
-  supervisors: any[]
   pendingSupervisors: any[]
   hours: any[]
+  students: any[]
+  supervisors: any[]
   organizations: any[]
   isProcessing: boolean
   onApproveSupervisor: (id: string) => void
@@ -24,10 +24,10 @@ interface OverviewTabProps {
 
 export function OverviewTab({
   overview,
-  students,
-  supervisors,
   pendingSupervisors,
   hours,
+  students,
+  supervisors,
   organizations,
   isProcessing,
   onApproveSupervisor,
@@ -38,7 +38,7 @@ export function OverviewTab({
 }: OverviewTabProps) {
   return (
     <div className="space-y-6">
-      <AdminStatsCards overview={overview} students={students} supervisors={supervisors} hours={hours} organizations={organizations} />
+      <AdminStatsCards overview={overview} />
       {userRole === 'superadmin' && hasGraduatedStudents && (
         <DeleteGraduatedButton onOpenDialog={onOpenDeleteGraduatedDialog} isLoading={isProcessing} />
       )}

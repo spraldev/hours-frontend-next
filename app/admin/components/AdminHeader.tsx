@@ -5,30 +5,13 @@ import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { Server, Download } from 'lucide-react'
 import { useAdminDashboard } from '@/hooks/useAdminDashboard'
-import { exportAllStudentsHoursToCSV } from '@/lib/utils/admin-export'
-import toast from 'react-hot-toast'
 import { useState } from 'react'
 
-export function AdminHeader() {
-  const { students, hours } = useAdminDashboard()
-  const [isExporting, setIsExporting] = useState(false)
+interface AdminHeaderProps {
+  onExportClick: () => void
+}
 
-  const handleExportAllStudentsHours = async () => {
-    setIsExporting(true)
-    try {
-      if (!students || students.length === 0) {
-        toast.error("No students data available to export")
-        return
-      }
-      
-      exportAllStudentsHoursToCSV(students, hours || [])
-      toast.success("All students' hours exported successfully")
-    } catch (error: any) {
-      toast.error(error.message || "Failed to export students' hours")
-    } finally {
-      setIsExporting(false)
-    }
-  }
+export function AdminHeader({ onExportClick }: AdminHeaderProps) {
 
   return (
     <div className="mb-8">
@@ -40,13 +23,12 @@ export function AdminHeader() {
           </div>
           <div className="flex items-center space-x-3">
             <Button 
-              onClick={handleExportAllStudentsHours}
-              disabled={isExporting}
+              onClick={onExportClick}
               variant="default"
               size="sm"
             >
               <Download className="mr-2 h-4 w-4" />
-              {isExporting ? "Exporting..." : "Export All Hours"}
+              Export Hours
             </Button>
           </div>
         </div>

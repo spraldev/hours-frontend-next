@@ -3,6 +3,8 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
 import { Badge } from '@/components/ui/badge'
+import { PaginationControls } from '@/components/ui/pagination-controls'
+import { PaginationInfo } from '@/types/api'
 import { EmptyHoursState } from './EmptyHoursState'
 
 interface Hour {
@@ -19,9 +21,21 @@ interface HoursTableProps {
   hours: Hour[]
   searchTerm: string
   statusFilter: string
+  pagination?: PaginationInfo
+  onPageChange?: (page: number) => void
+  onLimitChange?: (limit: number) => void
+  loading?: boolean
 }
 
-export function HoursTable({ hours, searchTerm, statusFilter }: HoursTableProps) {
+export function HoursTable({ 
+  hours, 
+  searchTerm, 
+  statusFilter, 
+  pagination, 
+  onPageChange, 
+  onLimitChange, 
+  loading = false 
+}: HoursTableProps) {
   if (hours.length === 0) {
     return (
       <Card>
@@ -40,7 +54,10 @@ export function HoursTable({ hours, searchTerm, statusFilter }: HoursTableProps)
     <Card>
       <CardHeader>
         <CardTitle>Service Hours Log</CardTitle>
-        <CardDescription>All your community service entries and their approval status</CardDescription>
+        <CardDescription>
+          All your community service entries and their approval status
+          {pagination && ` (${pagination.total} total)`}
+        </CardDescription>
       </CardHeader>
       <CardContent>
         <div className="overflow-x-auto">
@@ -81,6 +98,14 @@ export function HoursTable({ hours, searchTerm, statusFilter }: HoursTableProps)
             </TableBody>
           </Table>
         </div>
+        {pagination && onPageChange && onLimitChange && (
+          <PaginationControls
+            pagination={pagination}
+            onPageChange={onPageChange}
+            onLimitChange={onLimitChange}
+            loading={loading}
+          />
+        )}
       </CardContent>
     </Card>
   )

@@ -6,6 +6,8 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from '@/components/ui/dropdown-menu'
+import { PaginationControls } from '@/components/ui/pagination-controls'
+import { PaginationInfo } from '@/types/api'
 import { MoreVertical, Edit, Trash2 } from 'lucide-react'
 import { EmptyAllHours } from './EmptyAllHours'
 
@@ -15,9 +17,23 @@ interface AllHoursTableProps {
   statusFilter: string
   onEditClick: (hour: any) => void
   onDeleteClick: (hour: any) => void
+  pagination?: PaginationInfo
+  onPageChange?: (page: number) => void
+  onLimitChange?: (limit: number) => void
+  loading?: boolean
 }
 
-export function AllHoursTable({ hours, searchTerm, statusFilter, onEditClick, onDeleteClick }: AllHoursTableProps) {
+export function AllHoursTable({ 
+  hours, 
+  searchTerm, 
+  statusFilter, 
+  onEditClick, 
+  onDeleteClick, 
+  pagination, 
+  onPageChange, 
+  onLimitChange, 
+  loading = false 
+}: AllHoursTableProps) {
   if (hours.length === 0) {
     return (
       <Card>
@@ -36,7 +52,10 @@ export function AllHoursTable({ hours, searchTerm, statusFilter, onEditClick, on
     <Card>
       <CardHeader>
         <CardTitle>All Service Hours</CardTitle>
-        <CardDescription>Complete history of all student service hour submissions</CardDescription>
+        <CardDescription>
+          Complete history of all student service hour submissions
+          {pagination && ` (${pagination.total} total)`}
+        </CardDescription>
       </CardHeader>
       <CardContent>
         <div className="overflow-x-auto">
@@ -107,6 +126,14 @@ export function AllHoursTable({ hours, searchTerm, statusFilter, onEditClick, on
             </TableBody>
           </Table>
         </div>
+        {pagination && onPageChange && onLimitChange && (
+          <PaginationControls
+            pagination={pagination}
+            onPageChange={onPageChange}
+            onLimitChange={onLimitChange}
+            loading={loading}
+          />
+        )}
       </CardContent>
     </Card>
   )

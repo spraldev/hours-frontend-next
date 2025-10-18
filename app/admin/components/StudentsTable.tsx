@@ -4,16 +4,32 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@
 import { Avatar, AvatarFallback } from '@/components/ui/avatar'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
+import { PaginationControls } from '@/components/ui/pagination-controls'
 import { Edit, Eye } from 'lucide-react'
+
+import { PaginationInfo } from '@/types/api'
 
 interface StudentsTableProps {
   students: any[]
   onEditStudent: (student: any) => void
   onViewHours?: (student: any) => void
   isProcessing: boolean
+  pagination?: PaginationInfo
+  onPageChange?: (page: number) => void
+  onLimitChange?: (limit: number) => void
+  loading?: boolean
 }
 
-export function StudentsTable({ students, onEditStudent, onViewHours, isProcessing }: StudentsTableProps) {
+export function StudentsTable({ 
+  students, 
+  onEditStudent, 
+  onViewHours, 
+  isProcessing,
+  pagination,
+  onPageChange,
+  onLimitChange,
+  loading = false
+}: StudentsTableProps) {
   return (
     <div className="overflow-x-auto">
       <Table>
@@ -27,7 +43,16 @@ export function StudentsTable({ students, onEditStudent, onViewHours, isProcessi
           </TableRow>
         </TableHeader>
         <TableBody>
-          {students.length === 0 ? (
+          {loading && students.length === 0 ? (
+            <TableRow>
+              <TableCell colSpan={5} className="text-center py-8">
+                <div className="flex items-center justify-center">
+                  <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-primary"></div>
+                  <span className="ml-2 text-muted-foreground">Loading...</span>
+                </div>
+              </TableCell>
+            </TableRow>
+          ) : students.length === 0 ? (
             <TableRow>
               <TableCell colSpan={5} className="text-center text-muted-foreground">
                 No students found
@@ -83,6 +108,17 @@ export function StudentsTable({ students, onEditStudent, onViewHours, isProcessi
           )}
         </TableBody>
       </Table>
+      
+      {pagination && onPageChange && onLimitChange && (
+        <PaginationControls
+          pagination={pagination}
+          onPageChange={onPageChange}
+          onLimitChange={onLimitChange}
+          loading={loading}
+          showItemsPerPage={true}
+          showJumpToPage={true}
+        />
+      )}
     </div>
   )
 }

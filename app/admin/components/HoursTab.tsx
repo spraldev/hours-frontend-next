@@ -5,10 +5,14 @@ import { Button } from '@/components/ui/button'
 import { CheckCircle, XCircle } from 'lucide-react'
 import { HoursFiltersBar } from './HoursFiltersBar'
 import { HoursTable } from './HoursTable'
+import { PaginationControls } from '@/components/ui/pagination-controls'
 
 interface HoursTabProps {
   hours: any[]
   allHours: any[]
+  hoursPagination: any
+  hoursLoading: boolean
+  hoursActions: any
   searchTerm: string
   onSearchChange: (value: string) => void
   statusFilter: string
@@ -27,6 +31,9 @@ interface HoursTabProps {
 export function HoursTab({
   hours,
   allHours,
+  hoursPagination,
+  hoursLoading,
+  hoursActions,
   searchTerm,
   onSearchChange,
   statusFilter,
@@ -83,6 +90,12 @@ export function HoursTab({
             onEditHour={onEditHour}
             onDeleteHour={onDeleteHour}
             isProcessing={isProcessing}
+          />
+          <PaginationControls
+            pagination={hoursPagination}
+            onPageChange={hoursActions.setPage}
+            onLimitChange={hoursActions.setLimit}
+            loading={hoursLoading}
           />
         </CardContent>
       </Card>

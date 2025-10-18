@@ -173,15 +173,38 @@ export interface Student {
     };
   }
 
-  export interface OrganizationSearchResponse {
-    success: boolean;
-    data: {
-      organizations: OrganizationSearchItem[];
-      total: number;
-      hasMore: boolean;
-      query?: string;
-      offset: number;
-      limit: number;
-    };
-  }
+export interface OrganizationSearchResponse {
+  success: boolean;
+  data: {
+    organizations: OrganizationSearchItem[];
+    total: number;
+    hasMore: boolean;
+    query?: string;
+    offset: number;
+    limit: number;
+  };
+}
+
+// Pagination Types
+export interface PaginationInfo {
+  page: number;
+  limit: number;
+  total: number;
+  totalPages: number;
+  hasNext: boolean;
+  hasPrev: boolean;
+}
+
+export interface PaginatedResponse<T> {
+  success: boolean;
+  data: T[];
+  pagination: PaginationInfo;
+}
+
+export interface PaginationParams {
+  page?: number;
+  limit?: number;
+  search?: string;
+  filters?: Record<string, any>;
+}
   

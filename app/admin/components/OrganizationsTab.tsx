@@ -6,10 +6,14 @@ import { Avatar, AvatarFallback } from '@/components/ui/avatar'
 import { Badge } from '@/components/ui/badge'
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu'
 import { SearchAndStatusFilter } from './SearchAndStatusFilter'
+import { PaginationControls } from '@/components/ui/pagination-controls'
 import { Building2, Plus, MoreHorizontal, Edit, Trash2 } from 'lucide-react'
 
 interface OrganizationsTabProps {
   organizations: any[]
+  organizationsPagination: any
+  organizationsLoading: boolean
+  organizationsActions: any
   searchTerm: string
   onSearchChange: (value: string) => void
   statusFilter: string
@@ -22,6 +26,9 @@ interface OrganizationsTabProps {
 
 export function OrganizationsTab({
   organizations,
+  organizationsPagination,
+  organizationsLoading,
+  organizationsActions,
   searchTerm,
   onSearchChange,
   statusFilter,
@@ -37,7 +44,7 @@ export function OrganizationsTab({
         <div className="flex items-center justify-between">
           <div>
             <CardTitle>Organizations</CardTitle>
-            <CardDescription>Manage community service organizations ({organizations.length} total)</CardDescription>
+            <CardDescription>Manage community service organizations ({organizationsPagination.total} total)</CardDescription>
           </div>
           <Button onClick={onCreateOrganization} className="bg-[#0084ff] hover:bg-[#0070e6] text-white">
             <Plus className="mr-2 h-4 w-4" />
@@ -115,6 +122,12 @@ export function OrganizationsTab({
             ))
           )}
         </div>
+        <PaginationControls
+          pagination={organizationsPagination}
+          onPageChange={organizationsActions.setPage}
+          onLimitChange={organizationsActions.setLimit}
+          loading={organizationsLoading}
+        />
       </CardContent>
     </Card>
   )

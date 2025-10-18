@@ -32,8 +32,14 @@ export function useAdminSupervHandlers(state: any) {
     }
   }
 
+  const handleViewActivity = (supervisor: any) => {
+    state.setSelectedSupervisorForActivity(supervisor)
+    state.setIsSupervisorActivityDialogOpen(true)
+  }
+
   return {
     handleApproveSupervisor,
     handleRejectSupervisor,
+    handleViewActivity,
   }
 }
