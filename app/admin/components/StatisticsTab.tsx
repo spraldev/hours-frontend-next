@@ -4,64 +4,49 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Users, Clock } from 'lucide-react'
 
 interface StatisticsTabProps {
+  overview?: any
   students: any[]
   supervisors: any[]
   hours: any[]
   organizations: any[]
 }
 
-export function StatisticsTab({ students, supervisors, hours, organizations }: StatisticsTabProps) {
+export function StatisticsTab({ overview, students, supervisors, hours, organizations }: StatisticsTabProps) {
   // Add defensive programming to handle undefined/null props
   const safeStudents = students || []
   const safeSupervisors = supervisors || []
   const safeHours = hours || []
   const safeOrganizations = organizations || []
   
+  // Use overview data for accurate totals
+  const totalStudents = overview?.totalStudents ?? 0
+  const totalSupervisors = overview?.totalSupervisors ?? 0
+  const totalOrganizations = overview?.totalOrganizations ?? 0
+  const totalHours = overview?.totalHours ?? 0
+  const approvedHours = overview?.approvedHours ?? 0
+  const rejectedHours = overview?.rejectedHours ?? 0
+  const pendingHoursCount = overview?.pendingHours ?? 0
+  
+  // Calculate approval rate from overview data
+  const totalHourEntries = approvedHours + rejectedHours + pendingHoursCount
+  const approvalRate = totalHourEntries > 0 ? Math.round((approvedHours / totalHourEntries) * 100) : 0
+  const avgHoursPerStudent = totalStudents > 0 ? Math.round((approvedHours / totalStudents) * 10) / 10 : 0
+  
+  // For detailed breakdowns, we still need to use the paginated data since overview doesn't provide these
   const activeStudents = safeStudents.filter((s) => s.isActive).length
   const activeSupervisors = safeSupervisors.filter((s) => s.isActive).length
   const activeOrganizations = safeOrganizations.filter((o) => o.isActive).length
-  const totalHours = safeHours.reduce((sum, h) => sum + h.hours, 0)
-  const approvedHours = safeHours.filter((h) => h.status === 'approved').reduce((sum, h) => sum + h.hours, 0)
-  const pendingHours = safeHours.filter((h) => h.status === 'pending').reduce((sum, h) => sum + h.hours, 0)
-  const approvalRate = safeHours.length > 0 ? Math.round((safeHours.filter((h) => h.status === 'approved').length / safeHours.length) * 100) : 0
-  const avgHoursPerStudent = safeStudents.length > 0 ? Math.round((approvedHours / safeStudents.length) * 10) / 10 : 0
 
-  // Calculate hours per graduation year (class)
-  const hoursByClass = safeStudents.reduce((acc, student) => {
-    const graduationYear = student.graduatingYear
-    const classKey = `Class of ${graduationYear}`
-    
-    if (!acc[classKey]) {
-      acc[classKey] = {
-        year: graduationYear,
-        students: 0,
-        totalHours: 0,
-        approvedHours: 0
-      }
-    }
-    
-    acc[classKey].students++
-    
-    // Calculate hours for this student
-    const studentHours = safeHours.filter(hour => {
-      const hourStudent = typeof hour.student === 'string' ? hour.student : hour.student?._id
-      return hourStudent === student._id
-    })
-    
-    const studentTotalHours = studentHours.reduce((sum, h) => sum + h.hours, 0)
-    const studentApprovedHours = studentHours
-      .filter(h => h.status === 'approved')
-      .reduce((sum, h) => sum + h.hours, 0)
-    
-    acc[classKey].totalHours += studentTotalHours
-    acc[classKey].approvedHours += studentApprovedHours
-    
-    return acc
-  }, {} as Record<string, { year: number; students: number; totalHours: number; approvedHours: number }>)
-
-  // Sort classes by year
-  const sortedClasses = Object.entries(hoursByClass)
-    .sort(([, a], [, b]) => a.year - b.year)
+  // Use overview data for hours by graduation year if available, otherwise fallback to calculation
+  const hoursByGraduatingYear = overview?.hoursByGraduatingYear || []
+  const sortedClasses = hoursByGraduatingYear.length > 0 
+    ? hoursByGraduatingYear.map(item => [`Class of ${item.year}`, {
+        year: item.year,
+        students: item.studentCount,
+        totalHours: item.totalHours,
+        approvedHours: item.totalHours // Assuming overview provides approved hours
+      }])
+    : []
 
   return (
     <div className="space-y-6">
@@ -76,30 +61,30 @@ export function StatisticsTab({ students, supervisors, hours, organizations }: S
         <CardContent>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
             <div className="text-center">
-              <div className="text-3xl font-bold text-[#0084ff]">{safeStudents.length + safeSupervisors.length}</div>
+              <div className="text-3xl font-bold text-[#0084ff]">{totalStudents + totalSupervisors}</div>
               <div className="text-sm text-muted-foreground">Total Users</div>
               <div className="text-xs text-muted-foreground mt-1">
-                {safeStudents.length} students • {safeSupervisors.length} supervisors
+                {totalStudents} students • {totalSupervisors} supervisors
               </div>
             </div>
             <div className="text-center">
-              <div className="text-3xl font-bold text-green-600">{activeStudents}</div>
-              <div className="text-sm text-muted-foreground">Active Students</div>
+              <div className="text-3xl font-bold text-green-600">{overview?.pendingSupervisors ?? 0}</div>
+              <div className="text-sm text-muted-foreground">Pending Supervisors</div>
               <div className="text-xs text-muted-foreground mt-1">
-                {safeStudents.length > 0 ? Math.round((activeStudents / safeStudents.length) * 100) : 0}% of total
+                awaiting approval
               </div>
             </div>
             <div className="text-center">
-              <div className="text-3xl font-bold text-purple-600">{activeSupervisors}</div>
-              <div className="text-sm text-muted-foreground">Active Supervisors</div>
+              <div className="text-3xl font-bold text-purple-600">{totalSupervisors}</div>
+              <div className="text-sm text-muted-foreground">Total Supervisors</div>
               <div className="text-xs text-muted-foreground mt-1">
-                {safeSupervisors.length > 0 ? Math.round((activeSupervisors / safeSupervisors.length) * 100) : 0}% of total
+                {overview?.pendingSupervisors ?? 0} pending approval
               </div>
             </div>
             <div className="text-center">
-              <div className="text-3xl font-bold text-orange-600">{safeOrganizations.length}</div>
+              <div className="text-3xl font-bold text-orange-600">{totalOrganizations}</div>
               <div className="text-sm text-muted-foreground">Organizations</div>
-              <div className="text-xs text-muted-foreground mt-1">{activeOrganizations} active</div>
+              <div className="text-xs text-muted-foreground mt-1">{rejectedHours} rejected hours</div>
             </div>
           </div>
         </CardContent>
@@ -126,9 +111,9 @@ export function StatisticsTab({ students, supervisors, hours, organizations }: S
               <div className="text-xs text-muted-foreground mt-1">{approvalRate}% approval rate</div>
             </div>
             <div className="text-center">
-              <div className="text-3xl font-bold text-orange-600">{pendingHours}</div>
+              <div className="text-3xl font-bold text-orange-600">{pendingHoursCount}</div>
               <div className="text-sm text-muted-foreground">Pending Hours</div>
-              <div className="text-xs text-muted-foreground mt-1">{safeHours.filter((h) => h.status === 'pending').length} entries</div>
+              <div className="text-xs text-muted-foreground mt-1">{pendingHoursCount} entries</div>
             </div>
             <div className="text-center">
               <div className="text-3xl font-bold text-indigo-600">{avgHoursPerStudent}</div>

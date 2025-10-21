@@ -4,12 +4,13 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { BarChart3 } from 'lucide-react'
 
 interface SystemStatusCardProps {
+  overview?: any
   hours: any[]
   students: any[]
   supervisors: any[]
 }
 
-export function SystemStatusCard({ hours, students, supervisors }: SystemStatusCardProps) {
+export function SystemStatusCard({ overview, hours, students, supervisors }: SystemStatusCardProps) {
   return (
     <Card>
       <CardHeader>
@@ -22,20 +23,20 @@ export function SystemStatusCard({ hours, students, supervisors }: SystemStatusC
       <CardContent>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
           <div className="text-center p-3 rounded-lg bg-green-50 dark:bg-green-950/20 border border-green-200 dark:border-green-800">
-            <div className="text-2xl font-bold text-green-600">{hours.filter((h) => h.status === 'approved').length}</div>
+            <div className="text-2xl font-bold text-green-600">{overview?.approvedHours ?? 0}</div>
             <div className="text-sm text-muted-foreground">Approved Hours</div>
           </div>
           <div className="text-center p-3 rounded-lg bg-orange-50 dark:bg-orange-950/20 border border-orange-200 dark:border-orange-800">
-            <div className="text-2xl font-bold text-orange-600">{hours.filter((h) => h.status === 'pending').length}</div>
+            <div className="text-2xl font-bold text-orange-600">{overview?.pendingHours ?? 0}</div>
             <div className="text-sm text-muted-foreground">Pending Review</div>
           </div>
-          <div className="text-center p-3 rounded-lg bg-blue-50 dark:bg-blue-950/20 border border-blue-200 dark:border-blue-800">
-            <div className="text-2xl font-bold text-blue-600">{students.filter((s) => s.isActive).length}</div>
-            <div className="text-sm text-muted-foreground">Active Students</div>
+          <div className="text-center p-3 rounded-lg bg-red-50 dark:bg-red-950/20 border border-red-200 dark:border-red-800">
+            <div className="text-2xl font-bold text-red-600">{overview?.rejectedHours ?? 0}</div>
+            <div className="text-sm text-muted-foreground">Rejected Hours</div>
           </div>
-          <div className="text-center p-3 rounded-lg bg-purple-50 dark:bg-purple-950/20 border border-purple-200 dark:border-purple-800">
-            <div className="text-2xl font-bold text-purple-600">{supervisors.filter((s) => s.isActive).length}</div>
-            <div className="text-sm text-muted-foreground">Active Supervisors</div>
+          <div className="text-center p-3 rounded-lg bg-blue-50 dark:bg-blue-950/20 border border-blue-200 dark:border-blue-800">
+            <div className="text-2xl font-bold text-blue-600">{overview?.totalStudents ?? 0}</div>
+            <div className="text-sm text-muted-foreground">Total Students</div>
           </div>
         </div>
       </CardContent>

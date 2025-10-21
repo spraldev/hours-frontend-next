@@ -14,34 +14,8 @@ interface TabsContainerProps {
 }
 
 export function TabsContainer({ state, userHandlers, hoursHandlers, orgHandlers, supervHandlers, adminHandlers, userHoursHandlers }: TabsContainerProps) {
-  // Lazy load data when tabs are clicked
-  const handleTabChange = (tabValue: string) => {
-    state.setActiveTab(tabValue)
-    
-    // Trigger lazy loading based on tab
-    switch (tabValue) {
-      case 'students':
-        state.loadStudents()
-        break
-      case 'supervisors':
-        state.loadSupervisors()
-        break
-      case 'hours':
-        state.loadHours()
-        break
-      case 'organizations':
-        state.loadOrganizations()
-        break
-      case 'admins':
-        if (state.user?.role === 'superadmin') {
-          state.loadAdmins()
-        }
-        break
-    }
-  }
-
   return (
-    <Tabs value={state.activeTab} onValueChange={handleTabChange} className="w-full">
+    <Tabs value={state.activeTab} onValueChange={state.setActiveTab} className="w-full">
       <TabsList className="mb-6">
         <TabsTrigger value="overview">Overview</TabsTrigger>
         <TabsTrigger value="students">Students</TabsTrigger>
@@ -135,7 +109,7 @@ export function TabsContainer({ state, userHandlers, hoursHandlers, orgHandlers,
         />
       </TabsContent>
       <TabsContent value="statistics">
-        <StatisticsTab students={state.students} supervisors={state.supervisors} hours={state.hours} organizations={state.organizations} />
+        <StatisticsTab overview={state.overview} students={state.students} supervisors={state.supervisors} hours={state.hours} organizations={state.organizations} />
       </TabsContent>
       {state.user?.role === 'superadmin' && (
         <TabsContent value="admins">

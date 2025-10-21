@@ -10,13 +10,7 @@ export function useAdminData() {
   const [overview, setOverview] = useState<AdminOverview | null>(null)
   const [overviewLoading, setOverviewLoading] = useState(true)
   const [overviewError, setOverviewError] = useState<string | null>(null)
-  
-  // Lazy loading states - only load when tab is accessed
-  const [studentsLoaded, setStudentsLoaded] = useState(false)
-  const [supervisorsLoaded, setSupervisorsLoaded] = useState(false)
-  const [hoursLoaded, setHoursLoaded] = useState(false)
-  const [organizationsLoaded, setOrganizationsLoaded] = useState(false)
-  const [adminsLoaded, setAdminsLoaded] = useState(false)
+  const [initialLoading, setInitialLoading] = useState(true)
 
   // Create stable fetch functions for each data type
   const fetchStudents = useCallback((params: any) => adminApi.getStudents(params), [])
@@ -26,15 +20,16 @@ export function useAdminData() {
   const fetchOrganizations = useCallback((params: any) => adminApi.getOrganizations(params), [])
   const fetchAdmins = useCallback((params: any) => adminApi.getAdmins(params), [])
   
-  // Use pagination hooks for each data type - but only initialize when needed
-  const studentsPagination = usePagination<Student>(studentsLoaded ? fetchStudents : () => Promise.resolve({ success: true, data: [], pagination: { page: 1, limit: 25, total: 0, totalPages: 0, hasNext: false, hasPrev: false } }))
-  const supervisorsPagination = usePagination<Supervisor>(supervisorsLoaded ? fetchSupervisors : () => Promise.resolve({ success: true, data: [], pagination: { page: 1, limit: 25, total: 0, totalPages: 0, hasNext: false, hasPrev: false } }))
-  const pendingSupervisorsPagination = usePagination<Supervisor>(fetchPendingSupervisors) // Always load pending supervisors for overview
-  const hoursPagination = usePagination<Hour>(hoursLoaded ? fetchHours : () => Promise.resolve({ success: true, data: [], pagination: { page: 1, limit: 25, total: 0, totalPages: 0, hasNext: false, hasPrev: false } }))
-  const organizationsPagination = usePagination<Organization>(organizationsLoaded ? fetchOrganizations : () => Promise.resolve({ success: true, data: [], pagination: { page: 1, limit: 25, total: 0, totalPages: 0, hasNext: false, hasPrev: false } }))
+  // Use pagination hooks for each data type
+  const studentsPagination = usePagination<Student>(fetchStudents)
+  const supervisorsPagination = usePagination<Supervisor>(fetchSupervisors)
+  const pendingSupervisorsPagination = usePagination<Supervisor>(fetchPendingSupervisors)
+  const hoursPagination = usePagination<Hour>(fetchHours)
+  const organizationsPagination = usePagination<Organization>(fetchOrganizations)
   
   // Always initialize admins pagination, but conditionally use it
-  const adminsPagination = usePagination<any>(adminsLoaded ? fetchAdmins : () => Promise.resolve({ success: true, data: [], pagination: { page: 1, limit: 25, total: 0, totalPages: 0, hasNext: false, hasPrev: false } }))
+  // This endpoint requires superadmin role according to backend routes
+  const adminsPagination = usePagination<any>(fetchAdmins)
 
   // Additional methods for graduated students and other non-paginated operations
   const getGraduatedStudents = useCallback(async () => {
@@ -78,57 +73,33 @@ export function useAdminData() {
     fetchOverview()
   }, [])
 
-  // Lazy loading functions - only load data when tab is accessed
-  const loadStudents = useCallback(() => {
-    if (!studentsLoaded) {
-      setStudentsLoaded(true)
-    }
-  }, [studentsLoaded])
-
-  const loadSupervisors = useCallback(() => {
-    if (!supervisorsLoaded) {
-      setSupervisorsLoaded(true)
-    }
-  }, [supervisorsLoaded])
-
-  const loadHours = useCallback(() => {
-    if (!hoursLoaded) {
-      setHoursLoaded(true)
-    }
-  }, [hoursLoaded])
-
-  const loadOrganizations = useCallback(() => {
-    if (!organizationsLoaded) {
-      setOrganizationsLoaded(true)
-    }
-  }, [organizationsLoaded])
-
-  const loadAdmins = useCallback(() => {
-    if (!adminsLoaded) {
-      setAdminsLoaded(true)
-    }
-  }, [adminsLoaded])
-
   const refetch = async () => {
     await fetchOverview()
-    // Only refetch loaded data
-    if (studentsLoaded) studentsPagination.refetch()
-    if (supervisorsLoaded) supervisorsPagination.refetch()
-    pendingSupervisorsPagination.refetch() // Always refetch pending supervisors
-    if (hoursLoaded) hoursPagination.refetch()
-    if (organizationsLoaded) organizationsPagination.refetch()
-    if (user?.role === 'superadmin' && adminsLoaded) {
+    studentsPagination.refetch()
+    supervisorsPagination.refetch()
+    pendingSupervisorsPagination.refetch()
+    hoursPagination.refetch()
+    organizationsPagination.refetch()
+    // Only refetch admins if user is superadmin
+    if (user?.role === 'superadmin') {
       adminsPagination.refetch()
     }
   }
 
-  // Compute overall loading state - only check loaded data
-  const isAnyDataLoading = (studentsLoaded && studentsPagination.loading) || 
-    (supervisorsLoaded && supervisorsPagination.loading) || 
+  // Compute overall loading state - true if any data is still loading
+  const isAnyDataLoading = studentsPagination.loading || 
+    supervisorsPagination.loading || 
     pendingSupervisorsPagination.loading || 
-    (hoursLoaded && hoursPagination.loading) || 
-    (organizationsLoaded && organizationsPagination.loading) || 
-    (user?.role === 'superadmin' && adminsLoaded && adminsPagination.loading)
+    hoursPagination.loading || 
+    organizationsPagination.loading || 
+    (user?.role === 'superadmin' && adminsPagination.loading)
+
+  // Set initial loading to false once all data has loaded at least once
+  useEffect(() => {
+    if (!isAnyDataLoading && !initialLoading) {
+      setInitialLoading(false)
+    }
+  }, [isAnyDataLoading, initialLoading])
 
   // Memoize action objects to prevent infinite re-renders
   const studentsActions = useMemo(() => ({
@@ -190,14 +161,8 @@ export function useAdminData() {
     overview,
     overviewLoading,
     overviewError,
+    initialLoading,
     isAnyDataLoading,
-    
-    // Lazy loading functions
-    loadStudents,
-    loadSupervisors,
-    loadHours,
-    loadOrganizations,
-    loadAdmins,
     
     // Students with pagination
     students: studentsPagination.data,

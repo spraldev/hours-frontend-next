@@ -6,15 +6,18 @@ import { Users, Clock, AlertTriangle, Building2 } from 'lucide-react'
 
 interface AdminStatsCardsProps {
   overview: any
+  students: any[]
+  supervisors: any[]
+  hours: any[]
+  organizations: any[]
 }
 
-export function AdminStatsCards({ overview }: AdminStatsCardsProps) {
-  // Use only overview data - no need to fetch full datasets for counts
-  const totalStudents = overview?.totalStudents || 0
-  const totalHours = overview?.totalHours || 0
-  const pendingHours = overview?.pendingHours || 0
-  const activeSupervisors = overview?.totalSupervisors || 0
-  const totalOrganizations = overview?.totalOrganizations || 0
+export function AdminStatsCards({ overview, students, supervisors, hours, organizations }: AdminStatsCardsProps) {
+  // Use overview data for accurate totals
+  const totalStudents = overview?.totalStudents ?? 0
+  const totalHours = overview?.totalHours ?? 0
+  const pendingHours = overview?.pendingHours ?? 0
+  const totalSupervisors = overview?.totalSupervisors ?? 0
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
@@ -70,8 +73,8 @@ export function AdminStatsCards({ overview }: AdminStatsCardsProps) {
         <CardContent className="pb-2">
           <div className="flex items-center justify-between">
             <div>
-              <div className="text-3xl font-bold">{activeSupervisors}</div>
-              <p className="text-xs text-muted-foreground">{totalOrganizations} organizations</p>
+              <div className="text-3xl font-bold">{totalSupervisors}</div>
+              <p className="text-xs text-muted-foreground">{overview?.totalOrganizations ?? 0} organizations</p>
             </div>
             <Building2 className="h-8 w-8 text-purple-500/60" />
           </div>
